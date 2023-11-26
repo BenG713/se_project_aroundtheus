@@ -33,7 +33,7 @@
     line-height: 48px;
     margin: 0;
     padding-bottom: 7px;
-    width: 373px;
+    max-width: 373px;
     height: 48px;
   }
   
@@ -90,18 +90,23 @@
       padding: 0;
     }
   
-    .profile__title {
-      font-size: 22px;
-      line-height: 26.63px;
-    }
-  
     .profile__info {
       margin-right: 19px;
       margin-left: 19px;
+      display: flex;
+      flex-wrap: nowrap;
     }
+
+    .profile__title {
+      font-size: 22px;
+      line-height: 26.63px;
+      display: flex;
+      flex-wrap: nowrap;
+    }
+
   
     .profile__edit-button {
-      margin-right: 34px;
+
     }
   
     .profile__subtitle {
