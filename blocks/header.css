@@ -4,7 +4,7 @@
   margin-right: auto;
   margin-bottom: 40px;
   max-width: 880px;
-  border-bottom: 1px solid rgb(84, 84, 84, .5);
+  border-bottom: 1px solid rgb(84, 84, 84, 1);
 }
 
 .header__logo {
@@ -19,10 +19,15 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 620px) {
+  .header {
+    margin-top: 28px;
+    margin-bottom: 42px;
+  }
   .header__logo {
     height: 24px;
     width: 126px;
     margin-left: 27px;
+    padding-bottom: 32px;
   }
 }

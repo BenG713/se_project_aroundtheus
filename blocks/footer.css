@@ -1,24 +1,35 @@
+.footer {
+  padding-left: 196px;
+  padding-bottom: 60px;
+  padding-top: 67px;
+
+}
 .footer__copyright {
   font-weight: 400;
   font-size: 18px;
   color: #545454;
   margin: 0;
-  padding-bottom: 60px;
-  padding-top: 67px;
-  padding-left: 196px;
   line-height: 21.78px;
+  max-width: 209px;
 }
 
 @media screen and (max-width: 800px) {
-  .footer__copyright {
+  .footer {
     padding-left: 105px;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 620px) {
   .footer__copyright {
     font-size: 14px;
     line-height: 16.94px;
-    padding-left: 16px;
   }
+
+  .footer {
+    padding-left: 16px;
+    padding-top: 48px;
+    padding-bottom: 36px;
+  } 
+
+
 }
