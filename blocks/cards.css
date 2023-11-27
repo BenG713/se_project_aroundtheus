@@ -1,66 +1,41 @@
+.card__image {
+  width: 282px;
+  height: 282px;
+  border-radius: 10px;
+}
 
-.cards {
-    /* fonts */
-  }
-  
-  .card {
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-  }
-  
-  .cards__list {
-    display: grid;
-    list-style-type: none;
-    grid-template-columns: repeat(
-      auto-fit,
-      282px
-    ); /* what does auto-fit do here? */
-    grid-gap: 17px;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .card__image {
-    width: 282px;
-    height: 282px;
-  }
-  
-  .card__description {
-    max-width: 282px;
-    font-size: 24px;
-    font-weight: 900;
-    line-height: 29.05px;
-    display: flex;
-    background-color: white;
-    color: black;
-    padding-left: 20px;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    border-radius: 10px;
-  }
-  
-  .card__description-text {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  
-  }
-  
-  .card__like-button {
-    background: transparent url(../images/like-button-inactive.svg) center
-      no-repeat;
-    /* height: 18px; Why does getting rid of width make heart disappear?? */
-    /* Why does adding height screw up position? */
-    width: 21px;
-    border: none;
-    margin-left: auto;
-    margin-right: 20px;
-  }
-  
-  .card__like-button:hover {
-    opacity: 0.5;
-    cursor: pointer;
-  }
-  
+.card__description {
+  max-width: 282px;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29.05px;
+  display: flex;
+  background-color: white;
+  color: black;
+  padding-left: 20px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-radius: 0 0 10px 10px;
+}
+
+.card__description-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card__like-button {
+  background: transparent url(../images/like-button-inactive.svg) center
+    no-repeat;
+  /* height: 18px; Why does getting rid of width make heart disappear?? */
+  /* Why does adding height screw up position? */
+  width: 21px;
+  border: none;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.card__like-button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
