@@ -1,0 +1,47 @@
+
+.card__image {
+    width: 282px;
+    height: 282px;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .card__description {
+    max-width: 282px;
+    display: flex;
+    background-color: white;
+    color: black;
+    padding-left: 20px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border-radius: 0 0 10px 10px;
+    align-items: center;
+  }
+  
+  .card__description-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 29.05px;
+  }
+  
+  .card__like-button {
+    background: transparent url(../images/like-button-inactive.svg) center
+      no-repeat;
+    /* Why does adding height mess up position? */
+    /* 18px; Why does getting rid of width make heart disappear?? */ 
+    height: 21px;
+    width: 21px;
+    border: none;
+    margin-left: auto;
+    margin-right: 20px;
+    padding-right: 13px;
+  }
+  
+  .card__like-button:hover {
+    opacity: 0.5;
+    cursor: pointer;
+  }
+  

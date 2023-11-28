@@ -1,8 +1,10 @@
 .footer {
-  padding-left: 196px;
+  max-width: 880px;  
   padding-bottom: 60px;
   padding-top: 67px;
-
+  margin-left: auto;
+  margin-right: auto;
+  
 }
 .footer__copyright {
   font-weight: 400;
@@ -12,24 +14,27 @@
   line-height: 21.78px;
   max-width: 209px;
 }
-
-@media screen and (max-width: 800px) {
-  .footer {
-    padding-left: 105px;
-  }
+/*
+0 - 600 / mobile
+601 - 899 / tablet
+900 - endless / desktop
+*/
+@media screen and (max-width: 899px) {
+    .footer {
+    max-width: 581px;
 }
 
-@media screen and (max-width: 620px) {
-  .footer__copyright {
-    font-size: 14px;
-    line-height: 16.94px;
-  }
+}
 
+@media screen and (max-width: 601px) {
   .footer {
-    padding-left: 16px;
+    max-width: 282px;
     padding-top: 48px;
     padding-bottom: 36px;
   } 
 
-
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 16.94px;
+  }
 }

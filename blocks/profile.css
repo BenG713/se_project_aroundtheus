@@ -67,7 +67,7 @@
   width: 150px;
   margin-top: 39px;
   border: 1px solid white;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 .profile__add-button:hover {
@@ -75,7 +75,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 601px) {
   .profile {
     max-width: 282px;
     flex-direction: column;
@@ -113,7 +113,6 @@
   }
 
   .profile__add-button {
-    height: 50px;
     margin-top: 36px;
     margin-right: auto;
     width: 282px;
