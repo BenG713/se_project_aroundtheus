@@ -29,9 +29,7 @@
   
   .card__like-button {
     background: transparent url(../images/like-button-inactive.svg) center
-      no-repeat;
-    /* Why does adding height mess up position? */
-    /* 18px; Why does getting rid of width make heart disappear?? */ 
+      no-repeat; 
     height: 21px;
     width: 21px;
     border: none;
