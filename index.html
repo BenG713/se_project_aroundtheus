@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no,"
-    />
+      content="width=device-width, initial-scale=1.0, user-scalable=no,"/>
     <meta content="ie=edge" http-equiv="X-UA-Compatible" />
     <link rel="stylesheet" href="./pages/index.css" />
     <title>Around the U.S.</title>
@@ -25,21 +24,21 @@
         />
 
         <div class="profile__info">
-          <h1 class="profile__title">Jacques Cousteau</h1>
+          <h1 class="profile__name">Jacques Cousteau</h1>
           <button type="button" 
           aria-label="Edit" 
           class="profile__edit-button"
           id="profile-edit-button">
         </button>
 
-          <p class="profile__subtitle">Explorer</p>
+          <p class="profile__description">Explorer</p>
         </div>
         <button type="button" aria-label="Add" class="profile__add-button"></button>
       </section>
 
       <section class="cards">
         <ul class="cards__list">
-          <li class="card">
+          <!-- <li class="card">
             <img
               class="card__image"
               src="./images/yosemite.jpg"
@@ -101,7 +100,7 @@
               <h2 class="card__description-text">Lago di Braies</h2>
               <button type="button" class="card__like-button"></button>
             </div>
-          </li>
+          </li> -->
         </ul>
       </section>
     </div>
@@ -117,15 +116,31 @@
           </button>
           <div class="modal__heading">Edit profile</div>
             <form class="modal__form">
-              <input class="modal__input" type="text" name="title" placeholder="Name"/>
-              <input class="modal__input" type="text" name="subtitle" placeholder="Description"/>
+              <input class="modal__input" 
+              id = "profile-name-input"
+              type="text" 
+              name="name" 
+              placeholder="Name"/>
+              <input class="modal__input" 
+              id = "profile-description-input"
+              type="text" 
+              name="description" 
+              placeholder="Description"/>
             </form> 
-              <button class="modal__save">Save</button>
+              <button class="modal__save" type="submit">Save</button>
           </div>
       </div>
 
 
-
+<template id="card-template">
+  <li class="card">
+    <img class="card__image" src="" alt="" />
+    <div class="card__description">
+      <h2 class="card__description-text"></h2>
+      <button type="button" class="card__like-button"></button>
+    </div>
+  </li>
+</template>
 
     <script src="./scripts/index.js"></script>
   </body>
