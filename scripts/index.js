@@ -38,12 +38,9 @@ const profileCloseBtn = document.querySelector("#close-button");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 const profileNameInput = document.querySelector("#profile-name-input");
-const profileDescriptionInput = document.querySelector(
-  "#profile-description-input"
-);
-const profileEditForm = profileEditModal.querySelector(".modal__save");
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
+const profileDescriptionInput = document.querySelector("#profile-description-input");
+const profileEditForm = profileEditModal.querySelector(".modal__form");
+
 
 // Functions
 
@@ -62,13 +59,7 @@ function handleProfileEditSave(e) {
 
 profileEditBtn.addEventListener("click", () => {
   profileNameInput.value = profileName.textContent;
-});
-
-profileEditBtn.addEventListener("click", () => {
   profileDescriptionInput.value = profileDescription.textContent;
-});
-
-profileEditBtn.addEventListener("click", () => {
   profileEditModal.classList.add("modal_opened");
 });
 
@@ -76,24 +67,28 @@ profileCloseBtn.addEventListener("click", () => {
   closePopUp();
 });
 
-profileEditForm.addEventListener("click", handleProfileEditSave);
-const cardListEl = document.querySelector(".cards__list");
+profileEditForm.addEventListener("submit", handleProfileEditSave);
 
-initialCards.forEach((cardData) => {
+
+const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
+const cardListEl = document.querySelector(".cards__list"); // .cards__list is ul element
+
+function renderCard(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
-  console.log(cardData);
 
   cardImageEl.src = cardData.link;
   cardImageEl.alt = cardData.name;
-
-  const cardDescriptionTextEl = cardElement.querySelector(
-    ".card__description-text"
-  );
-
+ 
+  const cardDescriptionTextEl = cardElement.querySelector(".card__description-text");
   const cardLikeButtonEl = cardElement.querySelector(".card__like-button");
 
   cardDescriptionTextEl.textContent = cardData.name;
 
+  return cardElement;
+}
+
+initialCards.forEach((cardData) => {
+  const cardElement = renderCard(cardData);
   cardListEl.prepend(cardElement);
 });
