@@ -28,14 +28,18 @@
   }
   
   .card__like-button {
-    background: transparent url(../images/like-button-inactive.svg) center
-      no-repeat; 
+    background: transparent url(../images/like-button-inactive.svg) center no-repeat; 
     height: 21px;
     width: 21px;
     border: none;
     margin-left: auto;
     margin-right: 20px;
     padding-right: 13px;
+  }
+
+  
+  .card__like-button_active {
+    background: url(../images/like-button-active.svg) center no-repeat;
   }
   
   .card__like-button:hover {
