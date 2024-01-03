@@ -16,36 +16,38 @@ function handleProfileTextContent(e) {
   closePopUp(profileEditModal);
 }
 
-function handleProfileInputValues(e) {
+function handleProfileInputValues() {
   openPopup(profileEditModal);
   profileNameInput.value = profileName.textContent; //Placeholder = Current profile name
   profileDescriptionInput.value = profileDescription.textContent; //Placeholder = Current description
 }
 
-function handleAddCardFormSubmit(e) {
+function handleCardContent(e) {
   e.preventDefault();
-  const getCardElement = renderCard();
-  closePopUp(cardEditModal); //work on this later...bitch
+  const name = cardNameInput.value;
+  const link = cardImageInput.value;
+  const returnedElement = renderCard(name, link);
+  cardListEl.prepend(returnedElement);
+  closePopUp(cardEditModal);
 }
 
-function renderCard(cardData) {
+function renderCard(cardName, cardLink) {
   const cardElement = cardTemplate.cloneNode(true); //clones card template
   const cardImageEl = cardElement.querySelector(".card__image"); //adds card image div
   const cardNameTextEl = cardElement.querySelector(".card__description-text");
   const likeButton = cardElement.querySelector(".card__like-button");
-
-  //find delete button and assign it a variable
-  //add event listener to the delete button
-  //cardElement.remove();
-  //add click listener to card image element
+  const deleteButton = cardElement.querySelector(".card__delete-button");
 
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
   });
 
-  cardImageEl.src = cardData.link; //adds card image
-  cardImageEl.alt = cardData.name; //adds card alt text
-  cardNameTextEl.textContent = cardData.name; //Description equals alt text
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
 
+  cardImageEl.src = cardLink; //adds card image
+  cardImageEl.alt = cardName; //adds card alt text
+  cardNameTextEl.textContent = cardName; //Description equals alt text
   return cardElement;
 }
