@@ -35,10 +35,12 @@ const profileEditBtn = document.querySelector("#profile-edit-button");
 const cardEditBtn = document.querySelector("#profile-add-button");
 const profileCloseBtn = document.querySelector("#close-button");
 const cardCloseBtn = document.querySelector("#card-close-button");
+const imageCloseBtn = document.querySelector("#image-close-button");
 
 //Modals
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const cardEditModal = document.querySelector("#profile-card-modal");
+
 
 //inputs
 
@@ -76,6 +78,10 @@ cardCloseBtn.addEventListener("click", () => {
 });
 
 cardEditForm.addEventListener("submit", handleCardContent);
+
+imageCloseBtn.addEventListener("click", () => {
+  closePopUp(imageModal)}
+);
 
 initialCards.forEach((cardData) => {
   const cardElement = renderCard(cardData.name, cardData.link);

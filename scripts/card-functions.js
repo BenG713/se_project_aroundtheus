@@ -1,6 +1,8 @@
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
+const imageModal = document.querySelector("#modal-image");
+
 function openPopup(modal) {
   modal.classList.add("modal_opened"); // Opens modal
 }
@@ -26,6 +28,7 @@ function handleCardContent(e) {
   e.preventDefault();
   const name = cardNameInput.value;
   const link = cardImageInput.value;
+
   const returnedElement = renderCard(name, link);
   cardListEl.prepend(returnedElement);
   closePopUp(cardEditModal);
@@ -44,6 +47,15 @@ function renderCard(cardName, cardLink) {
 
   deleteButton.addEventListener("click", () => {
     cardElement.remove();
+  });
+
+  cardImageEl.addEventListener("click", () => {
+    console.log("Ben");
+    openPopup(imageModal);
+    imageModal.querySelector(".modal__preview-image").src = cardLink;
+    imageModal.querySelector(".card__description-text").alt = cardName;
+    imageModal.querySelector(".card__description-text").textContent = cardName;
+
   });
 
   cardImageEl.src = cardLink; //adds card image
