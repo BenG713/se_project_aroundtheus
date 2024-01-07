@@ -55,10 +55,10 @@ function handleCardContent(e) {
   e.preventDefault();
   const name = cardNameInput.value;
   const link = cardImageInput.value;
-
   const returnedElement = renderCard(name, link);
   cardListEl.prepend(returnedElement);
   closePopUp(cardEditModal);
+  cardEditForm.reset();
 }
 
 function renderCard(cardName, cardLink) {
@@ -67,7 +67,7 @@ function renderCard(cardName, cardLink) {
   const cardNameTextEl = cardElement.querySelector(".card__description-text");
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
-  const imageCaption = cardElement.querySelector(".modal__preview-description");
+ 
 
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
@@ -78,11 +78,11 @@ function renderCard(cardName, cardLink) {
   });
 
   cardImageEl.addEventListener("click", () => {
-    openPopup(imageModal);
     imageModal.querySelector(".modal__preview-image").src = cardLink;
     imageModal.querySelector(".modal__preview-description").alt = cardName;
     imageModal.querySelector(".modal__preview-description").textContent =
       cardName;
+    openPopup(imageModal);
   });
 
   cardImageEl.src = cardLink; //adds card image
@@ -137,7 +137,6 @@ profileEditForm.addEventListener("submit", handleProfileTextContent);
 
 cardEditBtn.addEventListener("click", () => {
   openPopup(cardEditModal);
-  cardEditForm.reset();
 });
 
 cardCloseBtn.addEventListener("click", () => {
