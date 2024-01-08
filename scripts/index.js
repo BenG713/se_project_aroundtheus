@@ -30,6 +30,8 @@ const initialCards = [
   },
 ];
 
+
+
 function openPopup(modal) {
   modal.classList.add("modal_opened"); // Opens modal
 }
@@ -37,8 +39,6 @@ function openPopup(modal) {
 function closePopUp(modal) {
   modal.classList.remove("modal_opened");
 }
-
-
 
 
 function handleProfileTextContent(e) {
@@ -82,11 +82,10 @@ function renderCard(cardName, cardLink) {
 
   cardImageEl.addEventListener("click", () => {
     openPopup(imageModal);
-    imageModal.querySelector(".modal__preview-image").src = cardLink;
-    imageModal.querySelector(".modal__preview-image").alt = cardName;
+    previewImage.src = cardLink;
+    previewImage.alt = cardName;
     imageModal.querySelector(".modal__preview-title").textContent =
       cardName;
-
   });
 
   cardImageEl.src = cardLink; //adds card image
@@ -106,6 +105,7 @@ const imageCloseBtn = document.querySelector("#image-close-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const cardEditModal = document.querySelector("#profile-card-modal");
 const imageModal = document.querySelector("#modal-image");
+const previewImage = imageModal.querySelector(".modal__preview-image");
 
 //inputs and information
 
@@ -113,9 +113,7 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 const profileNameInput = document.querySelector("#profile-name-input"); // in modal form
-const profileDescriptionInput = document.querySelector(
-  "#profile-description-input"
-); // in modal form
+const profileDescriptionInput = document.querySelector("#profile-description-input"); // in modal form
 
 const cardNameInput = document.querySelector("#card-name-input"); //in modal form
 const cardImageInput = document.querySelector("#card-image-link-input"); // in modal form
@@ -126,8 +124,7 @@ const cardImage = document.querySelector(".card__image"); //in card template
 const profileEditForm = document.forms["profile-form"]; //Where you type stuff in
 const cardEditForm = document.forms["card-form"];
 
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
+const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
 const cardListEl = document.querySelector(".cards__list"); // .cards__list is ul element
 
 // Event listeners
