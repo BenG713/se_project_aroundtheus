@@ -38,6 +38,9 @@ function closePopUp(modal) {
   modal.classList.remove("modal_opened");
 }
 
+
+
+
 function handleProfileTextContent(e) {
   e.preventDefault(); //stops page from refreshing
   profileName.textContent = profileNameInput.value; //Profile name = what was entered in modal
@@ -78,11 +81,12 @@ function renderCard(cardName, cardLink) {
   });
 
   cardImageEl.addEventListener("click", () => {
-    imageModal.querySelector(".modal__preview-image").src = cardLink;
-    imageModal.querySelector(".modal__preview-description").alt = cardName;
-    imageModal.querySelector(".modal__preview-description").textContent =
-      cardName;
     openPopup(imageModal);
+    imageModal.querySelector(".modal__preview-image").src = cardLink;
+    imageModal.querySelector(".modal__preview-image").alt = cardName;
+    imageModal.querySelector(".modal__preview-title").textContent =
+      cardName;
+
   });
 
   cardImageEl.src = cardLink; //adds card image
@@ -119,8 +123,8 @@ const cardImageInput = document.querySelector("#card-image-link-input"); // in m
 const cardName = document.querySelector(".card__description-text"); //in card template
 const cardImage = document.querySelector(".card__image"); //in card template
 
-const profileEditForm = profileEditModal.querySelector("#profile-form"); //Where you type stuff in
-const cardEditForm = cardEditModal.querySelector("#card-form");
+const profileEditForm = document.forms["profile-form"]; //Where you type stuff in
+const cardEditForm = document.forms["card-form"];
 
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
