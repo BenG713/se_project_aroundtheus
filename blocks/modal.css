@@ -18,6 +18,17 @@
   transition-delay: 0s;
 }
 
+.modal__error {
+  font-size: 12px;
+  line-height: 25px;
+  color: #ff0000;
+  opacity: 1;
+  position: fixed;
+  margin-top: 17px;
+  transition: opacity .3s;
+  display: none;
+}
+
 .image__modal {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;

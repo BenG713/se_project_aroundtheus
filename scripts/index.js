@@ -154,3 +154,5 @@ initialCards.forEach((cardData) => {
   const cardElement = renderCard(cardData.name, cardData.link);
   cardListEl.prepend(cardElement);
 });
+
+
