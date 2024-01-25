@@ -1,10 +1,9 @@
-function showInputError(formEl, inputEl, options) {
+function showInputError(formEl, inputEl, { inputErrorClass, errorClass}) {
  const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
-//  inputEl.classList.add(options.inputErrorClass)
-//  errorMessageEl.textContent = inputEl.validationMessage;
-//  errorMessageEl.classList.add(errorClass);
+ inputEl.classList.add(inputErrorClass);
+ errorMessageEl.textContent = inputEl.validationMessage;
+ errorMessageEl.classList.add(errorClass);
 
- console.log(errorMessageEl);
 };
 
 function checkInputvalidity(formEl, options, inputEl) {
@@ -17,7 +16,7 @@ function checkInputvalidity(formEl, options, inputEl) {
 
 function setEventListeners(formEl, options) {
   const { inputSelector } = options;
-  const inputEls = [...document.querySelectorAll(options.inputSelector)];
+  const inputEls = [...formEl.querySelectorAll(options.inputSelector)];
   inputEls.forEach((inputEl) => {
     inputEl.addEventListener("input", (evt) => {
       checkInputvalidity(formEl, options, inputEl);
