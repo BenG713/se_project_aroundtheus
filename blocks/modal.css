@@ -38,7 +38,7 @@
  } 
 
 .modal__input_type_error {
-  border-bottom: red;
+  border-bottom: rgba(255, 0, 0, 0.5);
 }
 
 .image__modal {
