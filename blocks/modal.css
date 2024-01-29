@@ -12,21 +12,33 @@
   display: flex;
 }
 
+
 .modal_opened {
   visibility: visible;
   opacity: 1;
   transition-delay: 0s;
 }
 
+.modal__label {
+  position: relative;
+}
+
 .modal__error {
   font-size: 12px;
   line-height: 25px;
   color: #ff0000;
-  opacity: 1;
+  opacity: 0;
   position: fixed;
-  margin-top: 17px;
   transition: opacity .3s;
-  display: none;
+  max-width: 381px;
+}
+
+.modal__error_visible {
+  opacity: 1;
+ } 
+
+.modal__input_type_error {
+  border-bottom: red;
 }
 
 .image__modal {
@@ -120,6 +132,7 @@
   border-left: none;
   border-right: none;
   border-bottom: 1px solid rgba(0, 0, 0, 1);
+  width: 100%;
 }
 
 .modal__input-card {

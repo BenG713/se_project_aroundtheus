@@ -1,18 +1,23 @@
-function showInputError(formEl, inputEl, { inputErrorClass, errorClass}) {
- const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
- inputEl.classList.add(inputErrorClass);
- errorMessageEl.textContent = inputEl.validationMessage;
- errorMessageEl.classList.add(errorClass);
+function showInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
+  const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
+  inputEl.classList.add(inputErrorClass);
+  errorMessageEl.textContent = inputEl.validationMessage;
+  errorMessageEl.classList.add(errorClass);
+}
 
-};
+function hideInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
+  const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
+  inputEl.classList.remove(inputErrorClass);
+  errorMessageEl.classList.remove(errorClass);
+}
 
 function checkInputvalidity(formEl, options, inputEl) {
   if (!inputEl.validity.valid) {
     showInputError(formEl, inputEl, options);
-    } else {
+  } else {
     hideInputError(formEl, inputEl, options);
-   }
-};
+  }
+}
 
 function setEventListeners(formEl, options) {
   const { inputSelector } = options;
@@ -22,7 +27,7 @@ function setEventListeners(formEl, options) {
       checkInputvalidity(formEl, options, inputEl);
     });
   });
-};
+}
 
 function enableValidation(options) {
   const formEls = [...document.querySelectorAll(options.formSelector)];
@@ -44,3 +49,6 @@ const config = {
 };
 
 enableValidation(config);
+
+// inputEls is input selector
+//formEls is form selector

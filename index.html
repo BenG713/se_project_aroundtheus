@@ -53,11 +53,12 @@
 
     <!-- Profile edit -->
 
-    <div class="modal" id="profile-edit-modal">
+    <div class="modal modal__input_type_error" id="profile-edit-modal">
       <div class="modal__container">
         <button class="modal__close" id="close-button"></button>
         <div class="modal__heading">Edit profile</div>
         <form class="modal__form" id="profile-form"> <!-- FORM -->
+          <label class="modal__label">
           <input
             class="modal__input"
             id="profile-name-input"
@@ -68,8 +69,10 @@
             minlength="2"
             required 
           />
-          <span class="modal__error" id="profile-name-input-error"></span>
+          <span id="profile-name-input-error" class="modal__error">Please fill in this field</span>
+          </label>
 
+          <label class="modal__label">
           <input
             class="modal__input"
             id="profile-description-input"
@@ -81,6 +84,7 @@
             required 
           />
           <span class="modal__error" id="profile-description-input-error"></span>
+          </label>
 
           <button class="modal__save" type="submit">Save</button>
         </form>
