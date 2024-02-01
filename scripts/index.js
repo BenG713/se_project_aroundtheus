@@ -41,7 +41,10 @@ function openPopup(modal) {
 }
 
 function closePopUp() {
-  document.querySelector(".modal_opened").classList.remove("modal_opened");
+  const isModalExist = document.querySelector(".modal_opened");
+  if (isModalExist) {
+    isModalExist.classList.remove("modal_opened");
+  }
 }
 
 function handleProfileTextContent(e) {
