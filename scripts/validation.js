@@ -33,7 +33,7 @@ function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
     submitButton.classList.remove(inactiveButtonClass);
     submitButton.disabled = false;
   }
-};
+}
 
 function setEventListeners(formEl, options) {
   const { inputSelector, submitButtonSelector } = options;
