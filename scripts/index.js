@@ -32,18 +32,20 @@ const initialCards = [
 
 function openPopup(modal) {
   modal.classList.add("modal_opened"); // Opens modal
+}
 
-  document.querySelector(".modal_opened").addEventListener("click", (event) => {
+document.querySelectorAll(".modal").forEach((el) => {
+  addEventListener("click", (event) => {
     if (event.target.classList.contains("modal_opened")) {
       closePopUp();
     }
   });
-}
+});
 
 function closePopUp() {
-  const isModalExist = document.querySelector(".modal_opened");
-  if (isModalExist) {
-    isModalExist.classList.remove("modal_opened");
+  const isModalOpen = document.querySelector(".modal_opened");
+  if (isModalOpen) {
+    isModalOpen.classList.remove("modal_opened");
   }
 }
 
@@ -89,7 +91,7 @@ function renderCard(cardName, cardLink) {
     openPopup(imageModal);
     previewImage.src = cardLink;
     previewImage.alt = cardName;
-    imageModal.querySelector(".modal__preview-title").textContent = cardName;
+    previewTitle.textContent = cardName;
   });
 
   cardImageEl.src = cardLink; //adds card image
@@ -110,6 +112,7 @@ const profileEditModal = document.querySelector("#profile-edit-modal");
 const cardEditModal = document.querySelector("#profile-card-modal");
 const imageModal = document.querySelector("#modal-image");
 const previewImage = imageModal.querySelector(".modal__preview-image");
+const previewTitle = imageModal.querySelector(".modal__preview-title");
 
 //inputs and information
 
@@ -147,6 +150,11 @@ document.addEventListener("keypress", function (evt) {
   if (evt.key === "Escape") {
     closePopUp();
   }
+  document.removeEventListener("keypress", function (evt) {
+    if (evt.key === "Escape") {
+      closePopUp();
+    }
+  });
 });
 
 cardEditBtn.addEventListener("click", () => {
