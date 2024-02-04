@@ -42,10 +42,20 @@ document.querySelectorAll(".modal").forEach((el) => {
   });
 });
 
+document.querySelectorAll(".modal").forEach((el) => {
+  removeEventListener("click", (event) => {
+    if (event.target.classList.contains("modal_opened")) {
+      closePopUp();
+    }
+  });
+});
+
+
+
 function closePopUp() {
-  const isModalOpen = document.querySelector(".modal_opened");
-  if (isModalOpen) {
-    isModalOpen.classList.remove("modal_opened");
+  const modalOpened = document.querySelector(".modal_opened");
+  if (modalOpened) {
+    modalOpened.classList.remove("modal_opened");
   }
 }
 
@@ -146,17 +156,6 @@ profileCloseBtn.addEventListener("click", () => {
 
 profileEditForm.addEventListener("submit", handleProfileTextContent);
 
-document.addEventListener("keypress", function (evt) {
-  if (evt.key === "Escape") {
-    closePopUp();
-  }
-  document.removeEventListener("keypress", function (evt) {
-    if (evt.key === "Escape") {
-      closePopUp();
-    }
-  });
-});
-
 cardEditBtn.addEventListener("click", () => {
   openPopup(cardEditModal);
 });
@@ -169,7 +168,14 @@ document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
     closePopUp();
   }
+  document.removeEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closePopUp();
+    }
+  });
 });
+
+
 
 cardEditForm.addEventListener("submit", handleCardContent);
 
