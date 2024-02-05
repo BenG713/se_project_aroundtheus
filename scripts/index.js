@@ -30,8 +30,20 @@ const initialCards = [
   },
 ];
 
+function handleEscape(evt) {
+  if (evt.key === "Escape") {
+    closePopUp();
+    }
+  };
+
+
 function openPopup(modal) {
   modal.classList.add("modal_opened"); // Opens modal
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closePopUp();
+    }
+  });
 }
 
 document.querySelectorAll(".modal").forEach((el) => {
@@ -50,6 +62,7 @@ document.querySelectorAll(".modal").forEach((el) => {
   });
 });
 
+document.removeEventListener("keydown", handleEscape);
 
 
 function closePopUp() {
@@ -162,17 +175,6 @@ cardEditBtn.addEventListener("click", () => {
 
 cardCloseBtn.addEventListener("click", () => {
   closePopUp();
-});
-
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closePopUp();
-  }
-  document.removeEventListener("keydown", (evt) => {
-    if (evt.key === "Escape") {
-      closePopUp();
-    }
-  });
 });
 
 
