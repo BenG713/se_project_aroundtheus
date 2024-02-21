@@ -1,3 +1,5 @@
+import Card from "../components/Card.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -29,6 +31,18 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+
+const card = new Card(cardData, "#card-template");
+  card.getView();
+
+
+
+
 
 function handleEscape(evt) {
   if (evt.key === "Escape") {
@@ -86,16 +100,16 @@ function renderCard(cardName, cardLink) {
   const cardElement = cardTemplate.cloneNode(true); //clones card template
   const cardImageEl = cardElement.querySelector(".card__image"); //adds card image div
   const cardNameTextEl = cardElement.querySelector(".card__description-text");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
+  // const likeButton = cardElement.querySelector(".card__like-button");
+  // const deleteButton = cardElement.querySelector(".card__delete-button");
 
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
-
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  // likeButton.addEventListener("click", () => {
+  //   likeButton.classList.toggle("card__like-button_active");
+  // });
+ 
+  // deleteButton.addEventListener("click", () => {
+  //   cardElement.remove();
+  // });
 
   cardImageEl.addEventListener("click", () => {
     openPopup(imageModal);
