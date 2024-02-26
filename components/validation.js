@@ -1,61 +1,69 @@
-function showInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
-  inputEl.classList.add(inputErrorClass);
-  const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
-  errorMessageEl.textContent = inputEl.validationMessage;
-  errorMessageEl.classList.add(errorClass);
-}
+export default class FormValidator {
+  constructor(formSelector, options) {
+    this._formEl = document.querySelector(formSelector)
+    this._formOptions = options;
+  } 
 
-function hideInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
-  const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
-  inputEl.classList.remove(inputErrorClass);
-  errorMessageEl.classList.remove(errorClass);
-}
-
-function checkInputvalidity(formEl, options, inputEl) {
-  if (!inputEl.validity.valid) {
-    showInputError(formEl, inputEl, options);
-  } else {
-    hideInputError(formEl, inputEl, options);
-  }
-}
-
-function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
-  let foundInvalid = false;
-  inputEls.forEach((inputEl) => {
+  _checkInputvalidity(options, inputEl) {
     if (!inputEl.validity.valid) {
-      foundInvalid = true;
+      showInputError(inputEl, options);
+    } else {
+      hideInputError(inputEl, options);
     }
-  });
-  if (foundInvalid) {
-    submitButton.classList.add(inactiveButtonClass);
-    submitButton.disabled = true;
-  } else {
-    submitButton.classList.remove(inactiveButtonClass);
-    submitButton.disabled = false;
   }
+
+  _toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
+    let foundInvalid = false;
+    inputEls.forEach((inputEl) => {
+      if (!inputEl.validity.valid) {
+        foundInvalid = true;
+      }
+    });
+    if (foundInvalid) {
+      submitButton.classList.add(inactiveButtonClass);
+      submitButton.disabled = true;
+    } else {
+      submitButton.classList.remove(inactiveButtonClass);
+      submitButton.disabled = false;
+    }
+  }
+  
+  _setEventListeners() {
+    const { inputSelector, submitButtonSelector } = this._formOptions;
+    const inputEls = [...this._formEl.querySelectorAll(inputSelector)];
+    const submitButton = this._formEl.querySelector(submitButtonSelector);
+    inputEls.forEach((inputEl) => {
+      inputEl.addEventListener("input", (evt) => {
+        checkInputvalidity(formEl, options, inputEl);
+        toggleButtonState(inputEls, submitButton, options);
+      });
+    });
+  }
+
+  enableValidation() {
+      this._formEl.addEventListener("submit", (e) => {
+        e.preventDefault();
+      });
+      this._setEventListeners();
+  }
+
+  showInputError(inputEl, { inputErrorClass, errorClass }) {
+      inputEl.classList.add(inputErrorClass);
+      const errorMessageEl = this._formEl.querySelector(`#${inputEl.id}-error`);
+      errorMessageEl.textContent = inputEl.validationMessage;
+      errorMessageEl.classList.add(errorClass);
+  }
+  hideInputError(inputEl, { inputErrorClass, errorClass }) {
+      const errorMessageEl = this._formEl.querySelector(`#${inputEl.id}-error`);
+      inputEl.classList.remove(inputErrorClass);
+      errorMessageEl.classList.remove(errorClass);
+  }
+
+
+
+
 }
 
-function setEventListeners(formEl, options) {
-  const { inputSelector, submitButtonSelector } = options;
-  const inputEls = [...formEl.querySelectorAll(inputSelector)];
-  const submitButton = formEl.querySelector(submitButtonSelector);
-  inputEls.forEach((inputEl) => {
-    inputEl.addEventListener("input", (evt) => {
-      checkInputvalidity(formEl, options, inputEl);
-      toggleButtonState(inputEls, submitButton, options);
-    });
-  });
-}
-
-function enableValidation(options) {
-  const formEls = [...document.querySelectorAll(options.formSelector)];
-  formEls.forEach((formEl) => {
-    formEl.addEventListener("submit", (e) => {
-      e.preventDefault();
-    });
-    setEventListeners(formEl, options);
-  });
-}
 
 const config = {
   formSelector: ".modal__form",
@@ -66,7 +74,12 @@ const config = {
   errorClass: "modal__error_visible",
 };
 
-enableValidation(config);
-
 // inputEls is input selector
 //formEls is form selector
+
+const profileFormValidate = new FormValidator("#profile-form", config);
+const cardFormValidate = new FormValidator("#card-form", config);
+
+profileFormValidate.enableValidation();
+cardFormValidate.enableValidation();
+
