@@ -4,11 +4,23 @@ export default class FormValidator {
     this._formOptions = options;
   } 
 
-  _checkInputvalidity(options, inputEl) {
+  _showInputError(inputEl, { inputErrorClass, errorClass }) {
+    inputEl.classList.add(inputErrorClass);
+    const errorMessageEl = this._formEl.querySelector(`#${inputEl.id}-error`);
+    errorMessageEl.textContent = inputEl.validationMessage;
+    errorMessageEl.classList.add(errorClass);
+}
+  _hideInputError(inputEl, { inputErrorClass, errorClass }) {
+    const errorMessageEl = this._formEl.querySelector(`#${inputEl.id}-error`);
+    inputEl.classList.remove(inputErrorClass);
+    errorMessageEl.classList.remove(errorClass);
+}
+
+  _checkInputvalidity(formEl, options, inputEl) {
     if (!inputEl.validity.valid) {
-      showInputError(inputEl, options);
+      this._showInputError(inputEl, options);
     } else {
-      hideInputError(inputEl, options);
+      this._hideInputError(inputEl, options);
     }
   }
 
@@ -34,8 +46,8 @@ export default class FormValidator {
     const submitButton = this._formEl.querySelector(submitButtonSelector);
     inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (evt) => {
-        checkInputvalidity(formEl, options, inputEl);
-        toggleButtonState(inputEls, submitButton, options);
+        this._checkInputvalidity(this._formEl, this._formOptions, inputEl);
+        this._toggleButtonState(inputEls, submitButton, this._formOptions);
       });
     });
   }
@@ -46,21 +58,6 @@ export default class FormValidator {
       });
       this._setEventListeners();
   }
-
-  showInputError(inputEl, { inputErrorClass, errorClass }) {
-      inputEl.classList.add(inputErrorClass);
-      const errorMessageEl = this._formEl.querySelector(`#${inputEl.id}-error`);
-      errorMessageEl.textContent = inputEl.validationMessage;
-      errorMessageEl.classList.add(errorClass);
-  }
-  hideInputError(inputEl, { inputErrorClass, errorClass }) {
-      const errorMessageEl = this._formEl.querySelector(`#${inputEl.id}-error`);
-      inputEl.classList.remove(inputErrorClass);
-      errorMessageEl.classList.remove(errorClass);
-  }
-
-
-
 
 }
 
