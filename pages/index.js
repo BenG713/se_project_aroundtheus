@@ -1,5 +1,25 @@
-import Card from "../components/card.js";
-import FormValidator from "../components/validation.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+
+
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__save",
+  inactiveButtonClass: "modal__save_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+// inputEls is input selector
+//formEls is form selector
+
+const profileFormValidate = new FormValidator("#profile-form", config);
+const cardFormValidate = new FormValidator("#card-form", config);
+
+profileFormValidate.enableValidation();
+profileFormValidate.resetValidation();
+cardFormValidate.enableValidation();
 
 const initialCards = [
   {
@@ -112,6 +132,7 @@ function handleProfileTextContent(e) {
 }
 
 function handleProfileInputValues() {
+  profileFormValidate.resetValidation();
   openPopup(profileEditModal);
   profileNameInput.value = profileName.textContent; //Placeholder = Current profile name
   profileDescriptionInput.value = profileDescription.textContent; //Placeholder = Current description
