@@ -20,7 +20,6 @@ const cardFormValidate = new FormValidator("#card-form", config);
 profileFormValidate.enableValidation();
 profileFormValidate.resetValidation();
 cardFormValidate.enableValidation();
-cardFormValidate.resetValidation();
 
 const initialCards = [
   {
@@ -145,9 +144,10 @@ function handleCardContent(e) {
   const link = cardImageInput.value;
   const returnedElement = renderCard(name, link);
   cardListEl.prepend(returnedElement);
+  cardFormValidate.resetValidation();
   closePopUp();
-  cardEditForm.reset();
-}
+ }
+
 
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -161,6 +161,7 @@ profileCloseBtn.addEventListener("click", () => {
 });
 
 profileEditForm.addEventListener("submit", handleProfileTextContent);
+
 
 cardEditBtn.addEventListener("click", () => {
   openPopup(cardEditModal);
