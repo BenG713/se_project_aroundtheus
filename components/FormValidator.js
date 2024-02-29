@@ -31,7 +31,7 @@ export default class FormValidator {
     this.inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (evt) => {
         this._checkInputvalidity(this._formEl, this._formOptions, inputEl);
-        this._toggleButtonState(this.inputEls, this.submitButton, this._formOptions);
+        this._toggleButtonState(this._formEl, this.inputEls, this.submitButton, this._formOptions);
       });
     });
   }
@@ -63,6 +63,6 @@ export default class FormValidator {
     this.inputEls.forEach((inputEl) => {
       this._hideInputError(inputEl, this._formOptions);
     });
-    this._toggleButtonState(); // WHAT ARGUMENTS?
+    this._toggleButtonState(this.inputEls, this.submitButton, this._formOptions);
   }
 }

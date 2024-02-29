@@ -20,6 +20,7 @@ const cardFormValidate = new FormValidator("#card-form", config);
 profileFormValidate.enableValidation();
 profileFormValidate.resetValidation();
 cardFormValidate.enableValidation();
+cardFormValidate.resetValidation();
 
 const initialCards = [
   {
