@@ -127,7 +127,8 @@ function openPopup(modal) {
 function handleProfileTextContent(e) {
   e.preventDefault(); //stops page from refreshing
   profileName.textContent = profileNameInput.value; //Profile name = what was entered in modal
-  profileDescription.textContent = profileDescriptionInput.value; // ""
+  profileDescription.textContent = profileDescriptionInput.value; 
+  profileFormValidate.resetValidation();
   closePopUp();
 }
 
@@ -142,9 +143,9 @@ function handleCardContent(e) {
   e.preventDefault();
   const name = cardNameInput.value;
   const link = cardImageInput.value;
-  const returnedElement = renderCard(name, link);
+  const returnedElement = this._renderCard(name, link);
   cardListEl.prepend(returnedElement);
-  cardFormValidate.resetValidation();
+    cardFormValidate.resetValidation();
   closePopUp();
  }
 
