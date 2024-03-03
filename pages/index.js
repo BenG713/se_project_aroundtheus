@@ -1,7 +1,6 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 
-
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
@@ -127,7 +126,7 @@ function openPopup(modal) {
 function handleProfileTextContent(e) {
   e.preventDefault(); //stops page from refreshing
   profileName.textContent = profileNameInput.value; //Profile name = what was entered in modal
-  profileDescription.textContent = profileDescriptionInput.value; 
+  profileDescription.textContent = profileDescriptionInput.value;
   profileFormValidate.resetValidation();
   closePopUp();
 }
@@ -139,15 +138,21 @@ function handleProfileInputValues() {
   profileDescriptionInput.value = profileDescription.textContent; //Placeholder = Current description
 }
 
+// When you click the add card button (the +), it creates a new card.
 function handleCardContent(e) {
   e.preventDefault();
   const name = cardNameInput.value;
   const link = cardImageInput.value;
-  const returnedElement = this._renderCard(name, link);
+  const returnedElement = createCard(name, link)
   cardListEl.prepend(returnedElement);
-    cardFormValidate.resetValidation();
+  cardFormValidate.resetValidation();
   closePopUp();
- }
+}
+
+function createCard(name, link) {
+  const card = new Card({ name, link }, "#card-template", handleImageClick);
+  return card.getCardElement();
+}
 
 
 const cardTemplate =
@@ -163,7 +168,6 @@ profileCloseBtn.addEventListener("click", () => {
 
 profileEditForm.addEventListener("submit", handleProfileTextContent);
 
-
 cardEditBtn.addEventListener("click", () => {
   openPopup(cardEditModal);
 });
@@ -178,8 +182,8 @@ imageCloseBtn.addEventListener("click", () => {
   closePopUp();
 });
 
+//When page is opened, this displays all cards you've created.
 initialCards.forEach((cardData) => {
-  const card = new Card(cardData, "#card-template", handleImageClick);
-  const returnedElement = card.getView();
+  const returnedElement = createCard(cardData.name, cardData.link);
   cardListEl.prepend(returnedElement);
 });

@@ -22,36 +22,35 @@ export default class FormValidator {
     this._submitButton = this._formEl.querySelector(submitButtonSelector);
     this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (evt) => {
-        this._checkInputvalidity(inputEl);
+        this._checkInputvalidity(inputEl); 
         this._toggleButtonState();
       });
     });
   }
 
-  _checkInputvalidity(inputEl) {
-    let foundInvalid = false;
-    this._inputEls.forEach((inputEl) => {
+  _hasInvalidInput() {
+    return this._inputEls.some((inputEl) => {return !inputEl.validity.valid})
+  }
+
+  _checkInputvalidity(inputEl) { //don't need for loop bc it's looping through inputs in _setEventListeners
+    this._foundInvalid = false; 
       if (!inputEl.validity.valid) {
-        foundInvalid = true;
+        this._foundInvalid = true;
       }
-      if (foundInvalid) {
+      if (this._foundInvalid) {
         this._showInputError(inputEl);
       } else {
         this._hideInputError(inputEl);
       }
-    });
-    return foundInvalid;
-
+    // don't need to return foundInvalid bc it's defined on first line of function as "global" within class
   }
 
   _toggleButtonState() {
-    // this._checkInputvalidity();
-    if (this.foundInvalid) {
-      console.log("invalid");
-      // this._submitButton.classList.add(this._formOptions.inactiveButtonClass);
-      // this._submitButton.disabled = true;
+    // const foundInvalid = this._checkInputvalidity();
+    if (this._hasInvalidInput()) {
+      this._submitButton.classList.add(this._formOptions.inactiveButtonClass);
+      this._submitButton.disabled = true;
     } else {
-      console.log("valid");
       this._submitButton.classList.remove(this._formOptions.inactiveButtonClass);
       this._submitButton.disabled = false;
     }
