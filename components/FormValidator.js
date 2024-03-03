@@ -19,8 +19,8 @@ export default class FormValidator {
   
   _checkInputValidity(inputEl) { //don't need for loop bc it's looping through inputs in _setEventListeners
     const isInputValid = inputEl.validity.valid
-    if(isInputValid) {this._showInputError}
-    else {this._hideInputError};
+    if(isInputValid) {this._showInputError(inputEl)}
+    else {this._hideInputError(inputEl)};
   }
 
   _setEventListeners() {
@@ -63,9 +63,6 @@ export default class FormValidator {
       this._hideInputError(inputEl, this._formOptions);
     });
     this._toggleButtonState(
-      // this._inputEls,
-      // this._submitButton,
-      // this._formOptions
     );
   }
 }
