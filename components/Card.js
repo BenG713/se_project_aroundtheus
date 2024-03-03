@@ -4,13 +4,6 @@ export default class Card {
     this._link = link;
     this._cardSelector = cardSelector; //card template
     this._handleImageClick = handleImageClick;
-    this._cardElement = document
-      .querySelector(this._cardSelector) //outer container for card list item (template)
-      .content.querySelector(".card") //list item element which contains all parts of the card
-      .cloneNode(true);
-
-    this._setEventListeners(); //setting event listeners for like button, delete button.
-    this._setCardNameImageAndDescription(); //getting the image div, image, description, and setting them.
   }
 
   _setEventListeners() {
@@ -56,6 +49,14 @@ export default class Card {
   }
 
   getCardElement() {
+    this._cardElement = document
+      .querySelector(this._cardSelector) //outer container for card list item (template)
+      .content.querySelector(".card") //list item element which contains all parts of the card
+      .cloneNode(true);
+
+    this._setEventListeners(); //setting event listeners for like button, delete button.
+    this._setCardNameImageAndDescription(); //getting the image div, image, description, and setting them.
+
     return this._cardElement;
   }
 }

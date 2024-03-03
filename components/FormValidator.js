@@ -16,13 +16,20 @@ export default class FormValidator {
     errorMessageEl.classList.remove(this._formOptions.errorClass);
   }
 
+  
+  _checkInputValidity(inputEl) { //don't need for loop bc it's looping through inputs in _setEventListeners
+    const isInputValid = inputEl.validity.valid
+    if(isInputValid) {this._showInputError}
+    else {this._hideInputError};
+  }
+
   _setEventListeners() {
     const { inputSelector, submitButtonSelector } = this._formOptions;
     this._inputEls = [...this._formEl.querySelectorAll(inputSelector)];
     this._submitButton = this._formEl.querySelector(submitButtonSelector);
     this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (evt) => {
-        this._checkInputvalidity(inputEl); 
+        this._checkInputValidity(inputEl); 
         this._toggleButtonState();
       });
     });
@@ -32,23 +39,11 @@ export default class FormValidator {
     return this._inputEls.some((inputEl) => {return !inputEl.validity.valid})
   }
 
-  _checkInputvalidity(inputEl) { //don't need for loop bc it's looping through inputs in _setEventListeners
-    this._foundInvalid = false; 
-      if (!inputEl.validity.valid) {
-        this._foundInvalid = true;
-      }
-      if (this._foundInvalid) {
-        this._showInputError(inputEl);
-      } else {
-        this._hideInputError(inputEl);
-      }
-    // don't need to return foundInvalid bc it's defined on first line of function as "global" within class
-  }
+
 
   _toggleButtonState() {
-    // const foundInvalid = this._checkInputvalidity();
-    if (this._hasInvalidInput()) {
-      this._submitButton.classList.add(this._formOptions.inactiveButtonClass);
+    if (this._hasInvalidInput()) 
+      {this._submitButton.classList.add(this._formOptions.inactiveButtonClass);
       this._submitButton.disabled = true;
     } else {
       this._submitButton.classList.remove(this._formOptions.inactiveButtonClass);
@@ -68,9 +63,9 @@ export default class FormValidator {
       this._hideInputError(inputEl, this._formOptions);
     });
     this._toggleButtonState(
-      this._inputEls,
-      this._submitButton,
-      this._formOptions
+      // this._inputEls,
+      // this._submitButton,
+      // this._formOptions
     );
   }
 }

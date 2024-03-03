@@ -126,10 +126,12 @@
   font-weight: 400;
   padding: 0;
   margin-top: 48px;
+  cursor: pointer;
 }
 
 .modal__save_disabled {
   opacity: 20%;
+  cursor: default;
 }
 
 .modal__save:hover {
