@@ -1,5 +1,10 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import PopupWithForm from "../components/PopupWithForm.js"
+
+
+const newCardPopUp = new PopupWithForm(".modal" , () => {})
+
 
 const config = {
   formSelector: ".modal__form",
@@ -94,19 +99,19 @@ function handleImageClick(data) {
   openPopup(imageModalContent);
 }
 
-function handleEscape(evt) {
-  if (evt.key === "Escape") {
-    closePopUp();
-  }
-}
+// function handleEscape(evt) {
+//   if (evt.key === "Escape") {
+//     closePopUp();
+//   }
+// }
 
-function closePopUp() {
-  const modalOpened = document.querySelector(".modal_opened");
-  if (modalOpened) {
-    modalOpened.classList.remove("modal_opened");
-  }
-  document.removeEventListener("keydown", handleEscape);
-}
+// function closePopUp() {
+//   const modalOpened = document.querySelector(".modal_opened");
+//   if (modalOpened) {
+//     modalOpened.classList.remove("modal_opened");
+//   }
+//   document.removeEventListener("keydown", handleEscape);
+// }
 
 const allModals = document.querySelectorAll(".modal");
 
@@ -118,10 +123,10 @@ allModals.forEach((el) => {
   });
 });
 
-function openPopup(modal) {
-  modal.classList.add("modal_opened"); // Opens modal
-  document.addEventListener("keydown", handleEscape);
-}
+// function openPopup(modal) {
+//   modal.classList.add("modal_opened"); // Opens modal
+//   document.addEventListener("keydown", handleEscape);
+// }
 
 function handleProfileTextContent(e) {
   e.preventDefault(); //stops page from refreshing
