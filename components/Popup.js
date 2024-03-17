@@ -1,34 +1,35 @@
 export class Popup {
-  constructor( { popUpSelector } ) {
-    this._popUpElement = document.querySelector(popUpSelector);
-    
-    ;
+  constructor( { popupSelector } ) {
+    this._popUpElement = document.querySelector(popupSelector);
+    console.log(this._popUpElement);
   }
 
-  _close() {
+  close() {
     const modalOpened = document.querySelector(".modal_opened");
     if (modalOpened) {
       modalOpened.classList.remove("modal_opened");
     }
-    document.removeEventListener("keydown", handleEscape);
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 
-  _open(modal) {
-    modal.classList.add("modal_opened"); // Opens modal
-    document.addEventListener("keydown", handleEscape);
+  open() {
+    this._popUpElement.classList.add("modal_opened"); // Opens modal
+    document.addEventListener("keydown", this._handleEscClose);
   }
 
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
-      closePopUp();
+      this.close();
     }
   };
 
   setEventListeners() {
     this._cardElement
-    .querySelector(".card__like-button")
-    .addEventListener("click", () => {
-      this._handleLikeButton();
-    });}
-
+      .querySelector(".card__like-button")
+      .addEventListener("click", () => {
+        this._handleLikeButton();
+      });
+  }
 }
+
+export default Popup;

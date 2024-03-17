@@ -1,16 +1,21 @@
-import Popup from "./PopUp";
+import Popup from "./PopUp.js";
 
 class PopupWithForm extends Popup {
-    constructor(popupSelector, handleFormSubmit) {
-        super( { popupSelector } );
-        this._popUpForm = this._popUpElement.querySelector(".modal__form")
-        this._handleFormSubmit = handleFormSubmit;
-    }
+  constructor(popupSelector, handleFormSubmit) {
+    super({ popupSelector });
+    this._popupForm = document.querySelector(popupSelector);
+    this._handleFormSubmit = handleFormSubmit;
+  }
 
-    close() {
-        this._popUpForm.reset();
-        super.close();
-    }
+  open() {
+    // this._popupForm.reset();
+    super.open(this._popupForm);
+  }
 
-
+  close() {
+    this._popupForm.querySelector(".modal__form").reset();
+    super.close();
+    super._handleEscClose();
+  }
 }
+export default PopupWithForm;

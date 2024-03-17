@@ -1,9 +1,13 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import PopupWithForm from "../components/PopupWithForm.js"
+import Popup from "../components/PopUp.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
 
 
-const newCardPopUp = new PopupWithForm(".modal" , () => {})
+const newCardPopup = new PopupWithForm("#profile-card-modal", () => {}); //submission handler in brackets
+const profileForm = new PopupWithForm("#profile-edit-modal", () => {});
+const imagePopup = new PopupWithImage( { popupSelector: "#image-modal" });
 
 
 const config = {
@@ -92,11 +96,12 @@ const cardImage = document.querySelector(".card__image"); //in card template
 const profileEditForm = document.forms["profile-form"]; //Where you type stuff in
 const cardEditForm = document.forms["card-form"];
 
+
 function handleImageClick(data) {
   modalImage.src = data._link;
   modalImage.alt = data._name;
   modalTitle.textContent = data._name;
-  openPopup(imageModalContent);
+  imagePopup.open();
 }
 
 // function handleEscape(evt) {
@@ -113,32 +118,31 @@ function handleImageClick(data) {
 //   document.removeEventListener("keydown", handleEscape);
 // }
 
-const allModals = document.querySelectorAll(".modal");
+// const allModals = document.querySelectorAll(".modal");
 
-allModals.forEach((el) => {
-  el.addEventListener("click", (event) => {
-    if (event.target.classList.contains("modal_opened")) {
-      closePopUp();
-    }
-  });
-});
+// allModals.forEach((el) => {
+//   el.addEventListener("click", (event) => {
+//     if (event.target.classList.contains("modal_opened")) {
+//       closePopUp();
+//     }
+//   });
+// });
 
 // function openPopup(modal) {
 //   modal.classList.add("modal_opened"); // Opens modal
 //   document.addEventListener("keydown", handleEscape);
 // }
 
-function handleProfileTextContent(e) {
+function handleProfileTextContent(e) { //EDITS PROFILE TITLE/SUBTITLE
   e.preventDefault(); //stops page from refreshing
   profileName.textContent = profileNameInput.value; //Profile name = what was entered in modal
   profileDescription.textContent = profileDescriptionInput.value;
   profileFormValidate.resetValidation();
-  closePopUp();
+  profileForm.close();
 }
 
-function handleProfileInputValues() {
+function handleProfileInputValues() { //SETS PLACEHOLDERS IN MODAL FORM
   profileFormValidate.resetValidation();
-  openPopup(profileEditModal);
   profileNameInput.value = profileName.textContent; //Placeholder = Current profile name
   profileDescriptionInput.value = profileDescription.textContent; //Placeholder = Current description
 }
@@ -148,10 +152,10 @@ function handleCardContent(e) {
   e.preventDefault();
   const name = cardNameInput.value;
   const link = cardImageInput.value;
-  const returnedElement = createCard(name, link)
+  const returnedElement = createCard(name, link);
   cardListEl.prepend(returnedElement);
   cardFormValidate.resetValidation();
-  closePopUp();
+  newCardPopup.close();
 }
 
 function createCard(name, link) {
@@ -159,32 +163,35 @@ function createCard(name, link) {
   return card.getCardElement();
 }
 
-
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const cardListEl = document.querySelector(".cards__list"); // .cards__list is ul element
 
 // Event listeners
-profileEditBtn.addEventListener("click", handleProfileInputValues);
+profileEditBtn.addEventListener("click", ()=> {
+  handleProfileInputValues();
+  profileForm.open();
+}
+);
 
 profileCloseBtn.addEventListener("click", () => {
-  closePopUp();
+  profileForm.close();
 });
 
 profileEditForm.addEventListener("submit", handleProfileTextContent);
 
 cardEditBtn.addEventListener("click", () => {
-  openPopup(cardEditModal);
+  newCardPopup.open();
 });
 
 cardCloseBtn.addEventListener("click", () => {
-  closePopUp();
+  newCardPopup.close();
 });
 
 cardEditForm.addEventListener("submit", handleCardContent);
 
 imageCloseBtn.addEventListener("click", () => {
-  closePopUp();
+  imagePopup.close();
 });
 
 //When page is opened, this displays all cards you've created.
