@@ -1,13 +1,12 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import Popup from "../components/PopUp.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 
 
 const newCardPopup = new PopupWithForm("#profile-card-modal", () => {}); //submission handler in brackets
 const profileForm = new PopupWithForm("#profile-edit-modal", () => {});
-const imagePopup = new PopupWithImage( { popupSelector: "#image-modal" });
+const imagePopup = new PopupWithImage( { popupSelector: "#modal-image" }, handleImageClick);
 
 
 const config = {
