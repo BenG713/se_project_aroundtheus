@@ -1,7 +1,7 @@
-export class Popup {
-  constructor( { popupSelector } ) {
-    this._popUpElement = document.querySelector(popupSelector);
-    console.log(this._popUpElement);
+class Popup {
+  constructor({ popupSelector }) {
+    this._popupElement = document.querySelector(popupSelector);
+    console.log(this._popupElement);
   }
 
   close() {
@@ -13,7 +13,7 @@ export class Popup {
   }
 
   open() {
-    this._popUpElement.classList.add("modal_opened"); // Opens modal
+    this._popupElement.classList.add("modal_opened"); // Opens modal
     document.addEventListener("keydown", this._handleEscClose);
   }
 
@@ -21,7 +21,7 @@ export class Popup {
     if (evt.key === "Escape") {
       this.close();
     }
-  };
+  }
 
   setEventListeners() {
     this._cardElement
