@@ -13,8 +13,11 @@ class Popup {
   open() {
     this._popupElement.classList.add("modal_opened"); // Opens modal
     document.addEventListener("keydown", this._handleEscClose);
-    this._popupElement.addEventListener("click", (event) => {this.handleClickOutside(event)}
-    );
+    this._popupElement.addEventListener("click", (event) =>
+      this.handleClickOutside(event));
+      this._handleEscClose;
+    }
+    ;
   }
 
   close() {
@@ -23,7 +26,9 @@ class Popup {
       modalOpened.classList.remove("modal_opened");
     }
     document.removeEventListener("keydown", (event) => {
-      this.handleClickOutside(event)}
+      this.handleClickOutside(event);
+      this._handleEscClose;
+    }
     );
   }
 
