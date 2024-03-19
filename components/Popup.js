@@ -3,17 +3,28 @@ class Popup {
     this._popupElement = document.querySelector(popupSelector);
   }
 
-  close() {
-    const modalOpened = document.querySelector(".modal_opened");
-    if (modalOpened) {
-      modalOpened.classList.remove("modal_opened");
-    }
-    document.removeEventListener("keydown", this._handleEscClose);
+  handleClickOutside(event) {
+      if (Array.from(event.target.classList).includes("modal_opened")) {
+        this.close();
+      }
+    
   }
 
   open() {
     this._popupElement.classList.add("modal_opened"); // Opens modal
     document.addEventListener("keydown", this._handleEscClose);
+    this._popupElement.addEventListener("click", (event) => {this.handleClickOutside(event)}
+    );
+  }
+
+  close() {
+    const modalOpened = document.querySelector(".modal_opened");
+    if (modalOpened) {
+      modalOpened.classList.remove("modal_opened");
+    }
+    document.removeEventListener("keydown", (event) => {
+      this.handleClickOutside(event)}
+    );
   }
 
   _handleEscClose(evt) {

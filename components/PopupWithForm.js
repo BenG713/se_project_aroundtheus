@@ -8,14 +8,11 @@ class PopupWithForm extends Popup {
   }
 
   open() {
-    // this._popupForm.reset();
     super.open(this._popupForm);
   }
 
   close() {
-    this._popupForm.querySelector(".modal__form").reset();
-    super.close();
-    super._handleEscClose();
+    super.close(this._popupForm);
   }
 }
 export default PopupWithForm;

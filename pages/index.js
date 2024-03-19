@@ -97,10 +97,7 @@ const cardEditForm = document.forms["card-form"];
 
 
 function handleImageClick(data) {
-  modalImage.src = data._link;
-  modalImage.alt = data._name;
-  modalTitle.textContent = data._name;
-  imagePopup.open();
+  imagePopup.open(data._name, data._link, );
 }
 
 // function handleEscape(evt) {
