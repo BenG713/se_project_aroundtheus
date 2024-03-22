@@ -38,5 +38,5 @@ export const config = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
   templateSelector: "#card-template",
-  containerSelector: "cards__list",
+  containerSelector: ".cards__list",
 };

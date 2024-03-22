@@ -1,15 +1,15 @@
+import "./pages/index.css";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
-import { config, initialCards } from "../components/utils/constants.js";
+import { config, initialCards } from "../components/constants.js";
 
 const newCardPopup = new PopupWithForm("#profile-card-modal", () => {}); //submission handler in brackets
 const profileForm = new PopupWithForm("#profile-edit-modal", () => {});
 const imagePopup = new PopupWithImage({ popupSelector: "#modal-image" });
-
 
 const profileFormValidate = new FormValidator("#profile-form", config);
 const cardFormValidate = new FormValidator("#card-form", config);
@@ -116,9 +116,15 @@ imageCloseBtn.addEventListener("click", () => {
 });
 
 function createCard(data) {
-  const card = new Card( {data,handleCardClick: () => { imagePopup.open(data.name, data.link);
-      }, },
-    config.templateSelector);
+  const card = new Card(
+    {
+      data,
+      handleCardClick: () => {
+        imagePopup.open(data.name, data.link);
+      },
+    },
+    config.templateSelector
+  );
   return card.getView();
 }
 const cardList = new Section(
@@ -128,5 +134,5 @@ const cardList = new Section(
       cardList.addItem(createCard(data));
     },
   },
-  config.containerSelector(cardList)
+  config.containerSelector
 );
