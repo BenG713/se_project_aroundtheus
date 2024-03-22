@@ -4,10 +4,9 @@ class Popup {
   }
 
   handleClickOutside(event) {
-      if (Array.from(event.target.classList).includes("modal_opened")) {
-        this.close();
-      }
-    
+    if (Array.from(event.target.classList).includes("modal_opened")) {
+      this.close();
+    }
   }
 
   open() {
@@ -16,8 +15,7 @@ class Popup {
     this._popupElement.addEventListener("click", (event) => {
       this.handleClickOutside(event);
       this._handleEscClose;
-    }
-    );
+    });
   }
 
   close() {
@@ -28,17 +26,14 @@ class Popup {
     document.removeEventListener("keydown", () => {
       this.handleClickOutside();
       this._handleEscClose;
-    }
-    );
+    });
   }
 
-  _handleEscClose(evt) {
-    console.log(1)
+  _handleEscClose = (evt) => {
     if (evt.key === "Escape") {
       this.close();
-      console.log(2);
     }
-  }
+  };
 
   setEventListeners() {
     this._cardElement
