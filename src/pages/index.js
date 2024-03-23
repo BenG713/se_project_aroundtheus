@@ -1,4 +1,4 @@
-import "./pages/index.css";
+import "./index.css";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
@@ -125,7 +125,7 @@ function createCard(data) {
     },
     config.templateSelector
   );
-  return card.getView();
+  return card.getCardElement();
 }
 const cardList = new Section(
   {
@@ -136,3 +136,5 @@ const cardList = new Section(
   },
   config.containerSelector
 );
+
+cardList.renderItems(initialCards);
