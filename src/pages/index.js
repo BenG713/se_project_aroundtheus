@@ -119,7 +119,8 @@ function createCard(data) {
   const card = new Card(
     {
       data,
-      handleCardClick: () => {
+      // cardSelector,
+      handleImageClick: () => {
         imagePopup.open(data.name, data.link);
       },
     },
