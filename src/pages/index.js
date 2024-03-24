@@ -117,14 +117,11 @@ imageCloseBtn.addEventListener("click", () => {
 
 function createCard(data) {
   const card = new Card(
-    {
-      data,
-      // cardSelector,
-      handleImageClick: () => {
-        imagePopup.open(data.name, data.link);
-      },
+    { data,
+      handleCardClick: () => {imagePopup.open(data.name, data.link);},
     },
-    config.templateSelector
+    config.templateSelector,
+    handleImageClick
   );
   return card.getCardElement();
 }
