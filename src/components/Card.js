@@ -31,7 +31,7 @@ export default class Card {
     const cardNameTextEl = this._cardElement.querySelector(
       ".card__description-text"
     );
-
+ 
     cardImageEl.src = this._link; //adds card image
     cardImageEl.alt = this._name; //adds card alt text
     cardNameTextEl.textContent = this._name; //Description

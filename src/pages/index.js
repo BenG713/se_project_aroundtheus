@@ -5,9 +5,12 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
-import { config, initialCards } from "../components/constants.js";
+import { config, initialCards } from "../utils/constants.js";
 
-const newCardPopup = new PopupWithForm("#profile-card-modal", () => {}); //submission handler in brackets
+const newCardPopup = new PopupWithForm("#profile-card-modal", (data) => {
+  const card = createCard(data);
+  cardList.addItem(card);
+});
 const profileForm = new PopupWithForm("#profile-edit-modal", () => {});
 const imagePopup = new PopupWithImage({ popupSelector: "#modal-image" });
 
@@ -27,12 +30,12 @@ const imageCloseBtn = document.querySelector("#image-close-button");
 
 //Modals
 
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const cardEditModal = document.querySelector("#profile-card-modal");
+// const profileEditModal = document.querySelector("#profile-edit-modal");
+// const cardEditModal = document.querySelector("#profile-card-modal");
 
-const imageModalContent = document.querySelector("#modal-image");
-const modalImage = imageModalContent.querySelector(".modal__preview-image");
-const modalTitle = imageModalContent.querySelector(".modal__preview-title");
+// const imageModalContent = document.querySelector("#modal-image");
+// const modalImage = imageModalContent.querySelector(".modal__preview-image");
+// const modalTitle = imageModalContent.querySelector(".modal__preview-title");
 
 //inputs and information
 
@@ -49,8 +52,8 @@ const profileDescriptionInput = document.querySelector(
 const cardNameInput = document.querySelector("#card-name-input"); //in modal form
 const cardImageInput = document.querySelector("#card-image-link-input"); // in modal form
 
-const cardName = document.querySelector(".card__description-text"); //in card template
-const cardImage = document.querySelector(".card__image"); //in card template
+// const cardName = document.querySelector(".card__description-text"); //in card template
+// const cardImage = document.querySelector(".card__image"); //in card template
 
 const profileEditForm = document.forms["profile-form"]; //Where you type stuff in
 const cardEditForm = document.forms["card-form"];
@@ -71,16 +74,14 @@ function handleCardContent(e) {
   e.preventDefault();
   const name = cardNameInput.value;
   const link = cardImageInput.value;
-  const card = new Card({ name, link }, "#card-template", () => {
-    imagePopup.open(name, link);
-  });
+  cardList.addItem(createCard({ name, link }));
   cardFormValidate.resetValidation();
   newCardPopup.close();
 }
 
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
-const cardListEl = document.querySelector(".cards__list"); // .cards__list is ul element
+// const cardTemplate =
+//   document.querySelector("#card-template").content.firstElementChild;
+// const cardListEl = document.querySelector(".cards__list"); // .cards__list is ul element
 
 // Event listeners
 profileEditBtn.addEventListener("click", () => {
@@ -92,14 +93,17 @@ profileCloseBtn.addEventListener("click", () => {
   profileForm.close();
 });
 
-profileEditForm.addEventListener("submit", (event) => {
-  userInfo.getUserInfo(profileName, profileDescription);
-  // this is the submit action, that means in the EVENT we have an access to the form data (name, description)
-  // so these data you need to use in the setUserInfo call
-  userInfo.setUserInfo(profileName, profileDescription);
-  profileFormValidate.resetValidation();
-  profileForm.close();
-});
+profileEditForm.addEventListener(
+  "submit",
+  (profileName, profileDescription) => {
+    userInfo.getUserInfo(profileName, profileDescription);
+    // this is the submit action, that means in the EVENT we have an access to the form data (name, description)
+    // so these data you need to use in the setUserInfo call
+    userInfo.setUserInfo(profileName, profileDescription);
+    profileFormValidate.resetValidation();
+    profileForm.close();
+  }
+);
 
 cardEditBtn.addEventListener("click", () => {
   newCardPopup.open();
@@ -116,15 +120,10 @@ imageCloseBtn.addEventListener("click", () => {
 });
 
 function createCard(data) {
-  const card = new Card(
-    { data,
-      handleCardClick: () => {imagePopup.open(data.name, data.link);},
-    },
-    config.templateSelector,
-    handleImageClick
-  );
+  const card = new Card(data, config.templateSelector, handleImageClick);
   return card.getCardElement();
 }
+
 const cardList = new Section(
   {
     items: initialCards,

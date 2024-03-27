@@ -35,13 +35,14 @@ class Popup {
     }
   };
 
-  setEventListeners() {
-    this._cardElement
-      .querySelector(".card__like-button")
-      .addEventListener("click", () => {
-        this._handleLikeButton();
-      });
-  }
+  _setEventListeners() {
+    imageCloseBtn.addEventListener("click", () => {
+      imagePopup.close();
+    });
+  };
+  
+ 
+
 }
 
 export default Popup;
