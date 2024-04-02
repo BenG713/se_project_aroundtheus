@@ -16,11 +16,14 @@ export default class FormValidator {
     errorMessageEl.classList.remove(this._formOptions.errorClass);
   }
 
-  
-  _checkInputValidity(inputEl) { //don't need for loop bc it's looping through inputs in _setEventListeners
-    const isInputValid = inputEl.validity.valid
-    if(isInputValid) {this._hideInputError(inputEl)}
-    else {this._showInputError(inputEl)};
+  _checkInputValidity(inputEl) {
+    //don't need for loop bc it's looping through inputs in _setEventListeners
+    const isInputValid = inputEl.validity.valid;
+    if (isInputValid) {
+      this._hideInputError(inputEl);
+    } else {
+      this._showInputError(inputEl);
+    }
   }
 
   _setEventListeners() {
@@ -29,24 +32,26 @@ export default class FormValidator {
     this._submitButton = this._formEl.querySelector(submitButtonSelector);
     this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (evt) => {
-        this._checkInputValidity(inputEl); 
+        this._checkInputValidity(inputEl);
         this._toggleButtonState();
       });
     });
   }
 
   _hasInvalidInput() {
-    return this._inputEls.some((inputEl) => {return !inputEl.validity.valid})
+    return this._inputEls.some((inputEl) => {
+      return !inputEl.validity.valid;
+    });
   }
 
-
-
   _toggleButtonState() {
-    if (this._hasInvalidInput()) 
-      {this._submitButton.classList.add(this._formOptions.inactiveButtonClass);
+    if (this._hasInvalidInput()) {
+      this._submitButton.classList.add(this._formOptions.inactiveButtonClass);
       this._submitButton.disabled = true;
     } else {
-      this._submitButton.classList.remove(this._formOptions.inactiveButtonClass);
+      this._submitButton.classList.remove(
+        this._formOptions.inactiveButtonClass
+      );
       this._submitButton.disabled = false;
     }
   }
@@ -62,7 +67,6 @@ export default class FormValidator {
     this._inputEls.forEach((inputEl) => {
       this._hideInputError(inputEl, this._formOptions);
     });
-    this._toggleButtonState(
-    );
+    this._toggleButtonState();
   }
 }

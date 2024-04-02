@@ -7,25 +7,24 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import { config, initialCards } from "../utils/constants.js";
 
-const newCardForm = new PopupWithForm(
+const newCardModal = new PopupWithForm(
   "#profile-card-modal",
-  () => handleCardContent(),
+  handleCardContent,
   "#card-add-button"
 );
-newCardForm.setEventListeners();
+newCardModal.setEventListeners();
 
-const profileForm = new PopupWithForm(
+const profileModal = new PopupWithForm(
   "#profile-edit-modal",
   (profileName, profileDescription) => {
-    userInfo.getUserInfo(profileName, profileDescription);
     userInfo.setUserInfo(profileName, profileDescription);
     profileFormValidate.resetValidation();
-    profileForm.close();
+    profileModal.close();
   },
   "#profile-edit-button",
   handleProfileInputValues
 );
-profileForm.setEventListeners();
+profileModal.setEventListeners();
 
 const imagePopup = new PopupWithImage({
   popupSelector: "#modal-image",
@@ -35,7 +34,6 @@ const profileFormValidate = new FormValidator("#profile-form", config);
 const cardFormValidate = new FormValidator("#card-form", config);
 
 profileFormValidate.enableValidation();
-profileFormValidate.resetValidation();
 cardFormValidate.enableValidation();
 
 //inputs and information
@@ -66,7 +64,7 @@ function handleCardContent() {
   const link = cardImageInput.value;
   cardList.addItem(createCard({ name, link }));
   cardFormValidate.resetValidation();
-  newCardForm.close();
+  newCardModal.close();
 }
 
 function handleImageClick(data) {
@@ -75,8 +73,6 @@ function handleImageClick(data) {
 
 function createCard(data) {
   const card = new Card(data, config.templateSelector, handleImageClick);
-  document.getElementById("card-name-input").value = "";
-  document.getElementById("card-image-link-input").value = "";
   return card.getCardElement();
 }
 
@@ -90,4 +86,4 @@ const cardList = new Section(
   config.containerSelector
 );
 
-cardList.renderItems(initialCards);
+cardList.renderItems();
