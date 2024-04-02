@@ -9,10 +9,7 @@ import { config, initialCards } from "../utils/constants.js";
 
 const newCardForm = new PopupWithForm(
   "#profile-card-modal",
-  (data) => {
-    const card = createCard(data);
-    cardList.addItem(card);
-  },
+  () => handleCardContent(),
   "#card-add-button"
 );
 newCardForm.setEventListeners();
@@ -56,9 +53,6 @@ const profileDescriptionInput = document.querySelector(
 const cardNameInput = document.querySelector("#card-name-input"); //in modal form
 const cardImageInput = document.querySelector("#card-image-link-input"); // in modal form
 
-const profileEditForm = document.forms["profile-form"]; //Where you type stuff in
-const cardEditForm = document.forms["card-form"];
-
 function handleProfileInputValues() {
   //SETS PLACEHOLDERS IN MODAL FORM
   profileFormValidate.resetValidation();
@@ -67,8 +61,7 @@ function handleProfileInputValues() {
 }
 
 // When you click the add card button (the +), it creates a new card.
-function handleCardContent(e) {
-  e.preventDefault();
+function handleCardContent() {
   const name = cardNameInput.value;
   const link = cardImageInput.value;
   cardList.addItem(createCard({ name, link }));
@@ -76,26 +69,14 @@ function handleCardContent(e) {
   newCardForm.close();
 }
 
-// profileEditForm.addEventListener(
-//   "submit",
-//   (profileName, profileDescription) => {
-//     userInfo.getUserInfo(profileName, profileDescription);
-//     // this is the submit action, that means in the EVENT we have an access to the form data (name, description)
-//     // so these data you need to use in the setUserInfo call
-//     userInfo.setUserInfo(profileName, profileDescription);
-//     profileFormValidate.resetValidation();
-//     profileForm.close();
-//   }
-// );
-
-cardEditForm.addEventListener("submit", handleCardContent);
-
 function handleImageClick(data) {
   imagePopup.open(data._name, data._link);
 }
 
 function createCard(data) {
   const card = new Card(data, config.templateSelector, handleImageClick);
+  document.getElementById("card-name-input").value = "";
+  document.getElementById("card-image-link-input").value = "";
   return card.getCardElement();
 }
 
