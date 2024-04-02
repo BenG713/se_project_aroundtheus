@@ -7,12 +7,32 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import { config, initialCards } from "../utils/constants.js";
 
-const newCardPopup = new PopupWithForm("#profile-card-modal", (data) => {
-  const card = createCard(data);
-  cardList.addItem(card);
+const newCardForm = new PopupWithForm(
+  "#profile-card-modal",
+  (data) => {
+    const card = createCard(data);
+    cardList.addItem(card);
+  },
+  "#card-add-button"
+);
+newCardForm.setEventListeners();
+
+const profileForm = new PopupWithForm(
+  "#profile-edit-modal",
+  (profileName, profileDescription) => {
+    userInfo.getUserInfo(profileName, profileDescription);
+    userInfo.setUserInfo(profileName, profileDescription);
+    profileFormValidate.resetValidation();
+    profileForm.close();
+  },
+  "#profile-edit-button",
+  handleProfileInputValues
+);
+profileForm.setEventListeners();
+
+const imagePopup = new PopupWithImage({
+  popupSelector: "#modal-image",
 });
-const profileForm = new PopupWithForm("#profile-edit-modal", () => {});
-const imagePopup = new PopupWithImage({ popupSelector: "#modal-image" });
 
 const profileFormValidate = new FormValidator("#profile-form", config);
 const cardFormValidate = new FormValidator("#card-form", config);
@@ -20,22 +40,6 @@ const cardFormValidate = new FormValidator("#card-form", config);
 profileFormValidate.enableValidation();
 profileFormValidate.resetValidation();
 cardFormValidate.enableValidation();
-
-// Buttons
-const profileEditBtn = document.querySelector("#profile-edit-button");
-const cardEditBtn = document.querySelector("#profile-add-button");
-const profileCloseBtn = document.querySelector("#close-button");
-const cardCloseBtn = document.querySelector("#card-close-button");
-const imageCloseBtn = document.querySelector("#image-close-button");
-
-//Modals
-
-// const profileEditModal = document.querySelector("#profile-edit-modal");
-// const cardEditModal = document.querySelector("#profile-card-modal");
-
-// const imageModalContent = document.querySelector("#modal-image");
-// const modalImage = imageModalContent.querySelector(".modal__preview-image");
-// const modalTitle = imageModalContent.querySelector(".modal__preview-title");
 
 //inputs and information
 
@@ -52,15 +56,8 @@ const profileDescriptionInput = document.querySelector(
 const cardNameInput = document.querySelector("#card-name-input"); //in modal form
 const cardImageInput = document.querySelector("#card-image-link-input"); // in modal form
 
-// const cardName = document.querySelector(".card__description-text"); //in card template
-// const cardImage = document.querySelector(".card__image"); //in card template
-
 const profileEditForm = document.forms["profile-form"]; //Where you type stuff in
 const cardEditForm = document.forms["card-form"];
-
-function handleImageClick(data) {
-  imagePopup.open(data._name, data._link);
-}
 
 function handleProfileInputValues() {
   //SETS PLACEHOLDERS IN MODAL FORM
@@ -76,48 +73,26 @@ function handleCardContent(e) {
   const link = cardImageInput.value;
   cardList.addItem(createCard({ name, link }));
   cardFormValidate.resetValidation();
-  newCardPopup.close();
+  newCardForm.close();
 }
 
-// const cardTemplate =
-//   document.querySelector("#card-template").content.firstElementChild;
-// const cardListEl = document.querySelector(".cards__list"); // .cards__list is ul element
-
-// Event listeners
-profileEditBtn.addEventListener("click", () => {
-  handleProfileInputValues();
-  profileForm.open();
-});
-
-profileCloseBtn.addEventListener("click", () => {
-  profileForm.close();
-});
-
-profileEditForm.addEventListener(
-  "submit",
-  (profileName, profileDescription) => {
-    userInfo.getUserInfo(profileName, profileDescription);
-    // this is the submit action, that means in the EVENT we have an access to the form data (name, description)
-    // so these data you need to use in the setUserInfo call
-    userInfo.setUserInfo(profileName, profileDescription);
-    profileFormValidate.resetValidation();
-    profileForm.close();
-  }
-);
-
-cardEditBtn.addEventListener("click", () => {
-  newCardPopup.open();
-});
-
-cardCloseBtn.addEventListener("click", () => {
-  newCardPopup.close();
-});
+// profileEditForm.addEventListener(
+//   "submit",
+//   (profileName, profileDescription) => {
+//     userInfo.getUserInfo(profileName, profileDescription);
+//     // this is the submit action, that means in the EVENT we have an access to the form data (name, description)
+//     // so these data you need to use in the setUserInfo call
+//     userInfo.setUserInfo(profileName, profileDescription);
+//     profileFormValidate.resetValidation();
+//     profileForm.close();
+//   }
+// );
 
 cardEditForm.addEventListener("submit", handleCardContent);
 
-imageCloseBtn.addEventListener("click", () => {
-  imagePopup.close();
-});
+function handleImageClick(data) {
+  imagePopup.open(data._name, data._link);
+}
 
 function createCard(data) {
   const card = new Card(data, config.templateSelector, handleImageClick);
