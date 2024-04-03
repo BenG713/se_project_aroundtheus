@@ -12,19 +12,17 @@ const newCardModal = new PopupWithForm(
   handleCardContent,
   "#card-add-button"
 );
-newCardModal.setEventListeners();
 
 const profileModal = new PopupWithForm(
   "#profile-edit-modal",
-  (profileName, profileDescription) => {
-    userInfo.setUserInfo(profileName, profileDescription);
+  (userInput) => {
+    userInfo.setUserInfo(userInput);
     profileFormValidate.resetValidation();
     profileModal.close();
   },
   "#profile-edit-button",
   handleProfileInputValues
 );
-profileModal.setEventListeners();
 
 const imagePopup = new PopupWithImage({
   popupSelector: "#modal-image",

@@ -11,9 +11,9 @@ class UserInfo {
     };
   }
 
-  setUserInfo(profileName, profileDescription) {
-    this._profileName = profileName;
-    this._profileDescription = profileDescription;
+  setUserInfo(userInput) {
+    this._profileName.textContent = userInput.name; 
+    this._profileDescription.textContent = userInput.description;
   }
 }
 

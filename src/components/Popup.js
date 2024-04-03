@@ -13,6 +13,7 @@ class Popup {
   }
 
   open() {
+    document.addEventListener("keydown", this._handleEscClose);
     this._popupElement.classList.add("modal_opened");
     this.setEventListeners();
   }
@@ -47,7 +48,6 @@ class Popup {
   }
 
   setEventListeners() {
-    document.addEventListener("keydown", this._handleEscClose);
     this._popupElement.addEventListener("click", (event) => {
       this.handleClickOutside(event);
     });
