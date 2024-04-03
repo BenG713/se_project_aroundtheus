@@ -10,6 +10,7 @@ class PopupWithForm extends Popup {
     super({ popupSelector, openSelector, preOpenHandler });
     this._popupModal = this._popupElement;
     this._handleFormSubmit = handleFormSubmit;
+    this.submit = this.submit.bind(this);
   }
 
   _getInputValues() {
@@ -21,12 +22,19 @@ class PopupWithForm extends Popup {
     return formValues;
   }
 
+  submit(e) {
+    e.preventDefault();
+    this._handleFormSubmit(this._getInputValues());
+  }
+
   setEventListeners() {
-    this._popupModal.addEventListener("submit", (e) => {
-      e.preventDefault();
-      this._handleFormSubmit(this._getInputValues());
-    });
+    this._popupModal.addEventListener("submit", this.submit);
     super.setEventListeners();
+  }
+
+  close() {
+    this._popupModal.removeEventListener("submit", this.submit);
+    super.close();
   }
 }
 

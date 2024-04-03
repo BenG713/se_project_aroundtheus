@@ -21,7 +21,7 @@ const profileModal = new PopupWithForm(
     profileModal.close();
   },
   "#profile-edit-button",
-  handleProfileInputValues
+  handleProfileReset
 );
 
 const imagePopup = new PopupWithImage({
@@ -49,11 +49,9 @@ const profileDescriptionInput = document.querySelector(
 const cardNameInput = document.querySelector("#card-name-input"); //in modal form
 const cardImageInput = document.querySelector("#card-image-link-input"); // in modal form
 
-function handleProfileInputValues() {
-  //SETS PLACEHOLDERS IN MODAL FORM
-  profileFormValidate.resetValidation();
-  profileNameInput.value = profileName.textContent; //Placeholder = Current profile name
-  profileDescriptionInput.value = profileDescription.textContent; //Placeholder = Current description
+function handleProfileReset() {
+  profileFormValidate.resetValidation(); 
+
 }
 
 // When you click the add card button (the +), it creates a new card.
