@@ -33,7 +33,6 @@ const cardFormValidate = new FormValidator("#card-form", config);
 profileFormValidate.enableValidation();
 cardFormValidate.enableValidation();
 
-
 //inputs and information
 
 const profileName = document.querySelector(".profile__name");
@@ -48,6 +47,8 @@ const profileDescriptionInput = document.querySelector(
 
 const cardNameInput = document.querySelector("#card-name-input"); //in modal form
 const cardImageInput = document.querySelector("#card-image-link-input"); // in modal form
+const cardForm = document.getElementById("card-form");
+
 
 function handleProfileInputValues() {
   //SETS PLACEHOLDERS IN MODAL FORM
@@ -56,10 +57,11 @@ function handleProfileInputValues() {
 }
 
 // When you click the add card button (the +), it creates a new card.
-function handleCardContent() {
+function handleCardContent(data) {
   const name = cardNameInput.value;
   const link = cardImageInput.value;
   cardList.addItem(createCard({ name, link }));
+  cardFormValidate.resetValidation(cardForm);
   newCardModal.close();
 }
 

@@ -56,13 +56,6 @@ export default class FormValidator {
     }
   }
 
-  enableValidation() {
-    this._formEl.addEventListener("submit", (e) => {
-      e.preventDefault();
-    });
-    this._setEventListeners();
-  }
-
   toggleErrors() {
     this._inputEls.forEach((inputEl) => {
       this._hideInputError(inputEl, this._formOptions);
@@ -70,8 +63,15 @@ export default class FormValidator {
     this._toggleButtonState();
   }
 
+  enableValidation() {
+    this._formEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+    this._setEventListeners();
+  }
+
   resetValidation(form) {
     form.reset();
+    this._toggleButtonState();
   }
-// WHY IT NO LIKE RESET?!?!
 }
