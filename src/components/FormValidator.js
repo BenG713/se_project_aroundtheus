@@ -63,10 +63,15 @@ export default class FormValidator {
     this._setEventListeners();
   }
 
-  resetValidation() {
+  toggleErrors() {
     this._inputEls.forEach((inputEl) => {
       this._hideInputError(inputEl, this._formOptions);
     });
     this._toggleButtonState();
   }
+
+  resetValidation(form) {
+    form.reset();
+  }
+// WHY IT NO LIKE RESET?!?!
 }
