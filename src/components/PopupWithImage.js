@@ -13,4 +13,7 @@ export class PopupWithImage extends Popup {
     this._cardTitle.textContent = name;
     this._cardImage.alt = name;
   }
+
+
+
 }

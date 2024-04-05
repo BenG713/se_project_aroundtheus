@@ -13,6 +13,8 @@ const newCardModal = new PopupWithForm(
   "#card-add-button"
 );
 
+newCardModal.setEventListeners();
+
 const profileModal = new PopupWithForm(
   "#profile-edit-modal",
   (userInput) => {
@@ -20,12 +22,16 @@ const profileModal = new PopupWithForm(
     profileModal.close();
   },
   "#profile-edit-button",
-  handleProfileInputValues
+  // userInfo.setUserInfo();
 );
+
+profileModal.setEventListeners();
 
 const imagePopup = new PopupWithImage({
   popupSelector: "#modal-image",
 });
+
+imagePopup.setEventListeners();
 
 const profileFormValidate = new FormValidator("#profile-form", config);
 const cardFormValidate = new FormValidator("#card-form", config);
@@ -40,33 +46,25 @@ const profileDescription = document.querySelector(".profile__description");
 
 const userInfo = new UserInfo({ profileName, profileDescription });
 
-const profileNameInput = document.querySelector("#profile-name-input"); // in modal form
-const profileDescriptionInput = document.querySelector(
-  "#profile-description-input"
-); // in modal form
+// const profileNameInput = document.querySelector("#profile-name-input"); // in modal form
+// const profileDescriptionInput = document.querySelector(
+//   "#profile-description-input"
+// ); // in modal form
 
 const cardNameInput = document.querySelector("#card-name-input"); //in modal form
 const cardImageInput = document.querySelector("#card-image-link-input"); // in modal form
-const cardForm = document.getElementById("card-form");
-
-
-function handleProfileInputValues() {
-  //SETS PLACEHOLDERS IN MODAL FORM
-  profileNameInput.value = profileName.textContent; // You need to use methods of UserInfo for that
-  profileDescriptionInput.value = profileDescription.textContent;
-}
 
 // When you click the add card button (the +), it creates a new card.
-function handleCardContent(data) {
+function handleCardContent() {
   const name = cardNameInput.value;
   const link = cardImageInput.value;
   cardList.addItem(createCard({ name, link }));
-  cardFormValidate.resetValidation(cardForm);
+  cardFormValidate.resetForm();
   newCardModal.close();
 }
 
 function handleImageClick(data) {
-  imagePopup.open(data._name, data._link);
+  imagePopup.open(data.name, data._link);
 }
 
 function createCard(data) {

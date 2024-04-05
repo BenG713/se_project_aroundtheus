@@ -56,11 +56,10 @@ export default class FormValidator {
     }
   }
 
-  toggleErrors() {
+  clearErrors() {
     this._inputEls.forEach((inputEl) => {
       this._hideInputError(inputEl, this._formOptions);
     });
-    this._toggleButtonState();
   }
 
   enableValidation() {
@@ -70,8 +69,8 @@ export default class FormValidator {
     this._setEventListeners();
   }
 
-  resetValidation(form) {
-    form.reset();
+  resetForm() {
+    this._formEl.reset();
     this._toggleButtonState();
   }
 }
