@@ -14,6 +14,8 @@ export class PopupWithImage extends Popup {
     this._cardImage.alt = name;
   }
 
-
+  close(){
+    super.close();
+  }
 
 }

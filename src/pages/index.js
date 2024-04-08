@@ -18,11 +18,11 @@ newCardModal.setEventListeners();
 const profileModal = new PopupWithForm(
   "#profile-edit-modal",
   (userInput) => {
-    userInfo.setUserInfo(userInput);
+    profileUserInfo.getUserInfo(userInput);
+    profileUserInfo.setUserInfo(userInput);
     profileModal.close();
   },
-  "#profile-edit-button",
-  // userInfo.setUserInfo();
+  "#profile-edit-button"
 );
 
 profileModal.setEventListeners();
@@ -44,12 +44,7 @@ cardFormValidate.enableValidation();
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
-const userInfo = new UserInfo({ profileName, profileDescription });
-
-// const profileNameInput = document.querySelector("#profile-name-input"); // in modal form
-// const profileDescriptionInput = document.querySelector(
-//   "#profile-description-input"
-// ); // in modal form
+const profileUserInfo = new UserInfo({ profileName, profileDescription });
 
 const cardNameInput = document.querySelector("#card-name-input"); //in modal form
 const cardImageInput = document.querySelector("#card-image-link-input"); // in modal form
@@ -64,7 +59,7 @@ function handleCardContent() {
 }
 
 function handleImageClick(data) {
-  imagePopup.open(data.name, data._link);
+  imagePopup.open(data._name, data._link);
 }
 
 function createCard(data) {

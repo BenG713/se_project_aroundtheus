@@ -5,20 +5,17 @@ class PopupWithForm extends Popup {
     popupSelector,
     handleFormSubmit,
     openSelector = "",
-    profileData = {name: "",
-                  description: ""
-                },
+    profileData = { name: "", description: "" },
     preOpenHandler = () => {}
   ) {
     super({ popupSelector, openSelector, preOpenHandler });
-    if (profileData.name)
-    {}
+    if (profileData.name) {
+    }
     this._handleFormSubmit = handleFormSubmit;
     this.submit = this.submit.bind(this);
   }
 
   _getInputValues() {
-    console.log("getInputValues");
     const formValues = {};
     const formInputs = Array.from(document.querySelectorAll(".modal__input"));
     formInputs.forEach((input) => {
@@ -40,7 +37,6 @@ class PopupWithForm extends Popup {
   close() {
     super.close();
   }
-
 }
 
 export default PopupWithForm;

@@ -13,6 +13,7 @@ class Popup {
   }
 
   open() {
+    this._closeBtn = this._popupElement.querySelector(".modal__close");
     document.addEventListener("keydown", this._handleEscClose);
     this._popupElement.classList.add("modal_opened");
   }
@@ -31,7 +32,7 @@ class Popup {
     }
   };
 
-  _handleCloseBtn() {
+  _handleCloseBtn = () => {
     this.close();
   }
 
@@ -45,10 +46,9 @@ class Popup {
     this._popupElement.addEventListener("click", (event) => {
       this.handleClickOutside(event);
     });
-    this._closeBtn.addEventListener("click", () => {
-      this._handleCloseBtn();
-    });
-  }
+    this._closeBtn.addEventListener("click", this._handleCloseBtn);
+  };
+  
 }
 
 export default Popup;
