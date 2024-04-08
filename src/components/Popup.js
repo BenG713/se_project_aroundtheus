@@ -16,13 +16,13 @@ class Popup {
     this._closeBtn = this._popupElement.querySelector(".modal__close");
     document.addEventListener("keydown", this._handleEscClose);
     this._popupElement.classList.add("modal_opened");
+    this.setEventListeners();
   }
 
   close() {
     this._popupElement.classList.remove("modal_opened");
 
     this._popupElement.removeEventListener("click", this.handleClickOutside);
-
     this._closeBtn.removeEventListener("click", this._handleCloseBtn);
   }
 

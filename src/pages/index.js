@@ -13,7 +13,6 @@ const newCardModal = new PopupWithForm(
   "#card-add-button"
 );
 
-newCardModal.setEventListeners();
 
 const profileModal = new PopupWithForm(
   "#profile-edit-modal",
@@ -25,13 +24,12 @@ const profileModal = new PopupWithForm(
   "#profile-edit-button"
 );
 
-profileModal.setEventListeners();
+
 
 const imagePopup = new PopupWithImage({
   popupSelector: "#modal-image",
 });
 
-imagePopup.setEventListeners();
 
 const profileFormValidate = new FormValidator("#profile-form", config);
 const cardFormValidate = new FormValidator("#card-form", config);
