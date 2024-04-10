@@ -4,7 +4,7 @@ class UserInfo {
     this._profileDescription = profileDescription;
 
 
-    this.setUserInfo(this.getUserInfo());
+    // this.setUserInfo(this.getUserInfo());
   }
 
   getUserInfo() {

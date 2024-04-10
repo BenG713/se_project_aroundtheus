@@ -1,7 +1,7 @@
 export default class Card {
   constructor({ name, link }, cardSelector, handleImageClick) {
-    this._name = name;
-    this._link = link;
+    this.name = name;
+    this.link = link;
     this._cardSelector = cardSelector; //card template
     this._handleImageClick = handleImageClick;
   }
@@ -32,9 +32,9 @@ export default class Card {
       ".card__description-text"
     );
 
-    cardImageEl.src = this._link; //adds card image
-    cardImageEl.alt = this._name; //adds card alt text
-    cardNameTextEl.textContent = this._name; //Description
+    cardImageEl.src = this.link; //adds card image
+    cardImageEl.alt = this.name; //adds card alt text
+    cardNameTextEl.textContent = this.name; //Description
   }
 
   _handleLikeButton() {

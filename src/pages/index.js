@@ -13,23 +13,18 @@ const newCardModal = new PopupWithForm(
   "#card-add-button"
 );
 
-
 const profileModal = new PopupWithForm(
   "#profile-edit-modal",
   (userInput) => {
-    profileUserInfo.getUserInfo(userInput);
-    profileUserInfo.setUserInfo(userInput);
+    profileUserInfo.setUserInfo(userInput); //used when submitting modal
     profileModal.close();
   },
   "#profile-edit-button"
 );
 
-
-
 const imagePopup = new PopupWithImage({
   popupSelector: "#modal-image",
 });
-
 
 const profileFormValidate = new FormValidator("#profile-form", config);
 const cardFormValidate = new FormValidator("#card-form", config);
@@ -40,24 +35,23 @@ cardFormValidate.enableValidation();
 //inputs and information
 
 const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
-
+const profileDescription = document.querySelector(".profile__description")
+console.log({ profileName, profileDescription });
 const profileUserInfo = new UserInfo({ profileName, profileDescription });
+
 
 const cardNameInput = document.querySelector("#card-name-input"); //in modal form
 const cardImageInput = document.querySelector("#card-image-link-input"); // in modal form
 
 // When you click the add card button (the +), it creates a new card.
-function handleCardContent() {
-  const name = cardNameInput.value;
-  const link = cardImageInput.value;
+function handleCardContent({ place: name, link }) {
   cardList.addItem(createCard({ name, link }));
   cardFormValidate.resetForm();
   newCardModal.close();
 }
 
 function handleImageClick(data) {
-  imagePopup.open(data._name, data._link);
+  imagePopup.open(data.name, data.link);
 }
 
 function createCard(data) {

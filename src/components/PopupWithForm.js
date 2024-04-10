@@ -6,7 +6,7 @@ class PopupWithForm extends Popup {
     handleFormSubmit,
     openSelector = "",
     profileData = { name: "", description: "" },
-    preOpenHandler = () => {}
+    preOpenHandler = () => {}    // const userInfo = getUserInfo(userInput); used when opening modal
   ) {
     super({ popupSelector, openSelector, preOpenHandler });
     if (profileData.name) {
@@ -18,6 +18,7 @@ class PopupWithForm extends Popup {
   _getInputValues() {
     const formValues = {};
     const formInputs = Array.from(document.querySelectorAll(".modal__input"));
+    console.log(formInputs)
     formInputs.forEach((input) => {
       formValues[input.name] = input.value;
     });

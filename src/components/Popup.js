@@ -1,7 +1,7 @@
 class Popup {
   constructor({ popupSelector, openSelector = "", preOpenHandler = () => {} }) {
     this._popupElement = document.querySelector(popupSelector);
-    this._closeBtn = this._popupElement.querySelector(".modal__close");
+    
     if (openSelector !== "") {
       this._preOpenHandler = preOpenHandler; //profile input values (placeholders in modal)
       this._openElement = document.querySelector(openSelector); //edit or add button or image
@@ -11,7 +11,7 @@ class Popup {
       });
     }
   }
-
+ 
   open() {
     this._closeBtn = this._popupElement.querySelector(".modal__close");
     document.addEventListener("keydown", this._handleEscClose);
@@ -23,7 +23,9 @@ class Popup {
     this._popupElement.classList.remove("modal_opened");
 
     this._popupElement.removeEventListener("click", this.handleClickOutside);
+
     this._closeBtn.removeEventListener("click", this._handleCloseBtn);
+
   }
 
   _handleEscClose = (evt) => {
