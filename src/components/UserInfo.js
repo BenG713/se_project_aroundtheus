@@ -2,9 +2,6 @@ class UserInfo {
   constructor({ profileName, profileDescription }) {
     this._profileName = profileName;
     this._profileDescription = profileDescription;
-
-
-    // this.setUserInfo(this.getUserInfo());
   }
 
   getUserInfo() {

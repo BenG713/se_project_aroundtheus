@@ -10,8 +10,15 @@ import { config, initialCards } from "../utils/constants.js";
 const newCardModal = new PopupWithForm(
   "#profile-card-modal",
   handleCardContent,
-  "#card-add-button"
+  "#card-add-button",
+
+
 );
+
+newCardModal.setEventListeners()
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
+const profileUserInfo = new UserInfo({ profileName, profileDescription });
 
 const profileModal = new PopupWithForm(
   "#profile-edit-modal",
@@ -19,12 +26,22 @@ const profileModal = new PopupWithForm(
     profileUserInfo.setUserInfo(userInput); //used when submitting modal
     profileModal.close();
   },
-  "#profile-edit-button"
+  "#profile-edit-button",
+  {},
+  () => {
+    document.getElementById("profile-name-input").value = profileUserInfo.getUserInfo().name;
+    document.getElementById("profile-description-input").value = profileUserInfo.getUserInfo().description;
+
+  }
 );
+
+profileModal.setEventListeners();
 
 const imagePopup = new PopupWithImage({
   popupSelector: "#modal-image",
 });
+
+imagePopup.setEventListeners();
 
 const profileFormValidate = new FormValidator("#profile-form", config);
 const cardFormValidate = new FormValidator("#card-form", config);
@@ -33,15 +50,6 @@ profileFormValidate.enableValidation();
 cardFormValidate.enableValidation();
 
 //inputs and information
-
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description")
-console.log({ profileName, profileDescription });
-const profileUserInfo = new UserInfo({ profileName, profileDescription });
-
-
-const cardNameInput = document.querySelector("#card-name-input"); //in modal form
-const cardImageInput = document.querySelector("#card-image-link-input"); // in modal form
 
 // When you click the add card button (the +), it creates a new card.
 function handleCardContent({ place: name, link }) {
