@@ -34,6 +34,9 @@ const profileModal = new PopupWithForm(
   }
 );
 
+
+// const { name, description } = profileUserInfo.getUserInfo()
+
 profileModal.setEventListeners();
 
 const imagePopup = new PopupWithImage({
