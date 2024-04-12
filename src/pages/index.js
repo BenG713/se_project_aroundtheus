@@ -10,12 +10,10 @@ import { config, initialCards } from "../utils/constants.js";
 const newCardModal = new PopupWithForm(
   "#profile-card-modal",
   handleCardContent,
-  "#card-add-button",
-
-
+  "#card-add-button"
 );
 
-newCardModal.setEventListeners()
+newCardModal.setEventListeners();
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 const profileUserInfo = new UserInfo({ profileName, profileDescription });
@@ -29,9 +27,10 @@ const profileModal = new PopupWithForm(
   "#profile-edit-button",
   {},
   () => {
-    document.getElementById("profile-name-input").value = profileUserInfo.getUserInfo().name;
-    document.getElementById("profile-description-input").value = profileUserInfo.getUserInfo().description;
-
+    document.getElementById("profile-name-input").value =
+      profileUserInfo.getUserInfo().name;
+    document.getElementById("profile-description-input").value =
+      profileUserInfo.getUserInfo().description;
   }
 );
 

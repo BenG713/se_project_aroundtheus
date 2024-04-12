@@ -20,11 +20,9 @@ class Popup {
 
   close() {
     this._popupElement.classList.remove("modal_opened");
-
-
-    this._popupElement.removeEventListener("click", this.handleClickOutside);
+    // this._popupElement.removeEventListener("click", this.handleClickOutside);
     document.removeEventListener("keydown", this._handleEscClose);
-    this._closeBtn.removeEventListener("click", this._handleCloseBtn);
+    // this._closeBtn.removeEventListener("click", this._handleCloseBtn);
   }
 
   _handleEscClose = (evt) => {
