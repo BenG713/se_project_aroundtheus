@@ -1,16 +1,8 @@
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
-  constructor(
-    popupSelector,
-    handleFormSubmit,
-    openSelector = "",
-    profileData = { name: "", description: "" },
-    preOpenHandler = () => {}    // const userInfo = getUserInfo(userInput); used when opening modal
-  ) {
-    super({ popupSelector, openSelector, preOpenHandler });
-    if (profileData.name) {
-    }
+  constructor(popupSelector, handleFormSubmit) {
+    super({ popupSelector });
     this._handleFormSubmit = handleFormSubmit;
     this.submit = this.submit.bind(this);
   }
@@ -32,10 +24,6 @@ class PopupWithForm extends Popup {
   setEventListeners() {
     this._popupElement.addEventListener("submit", this.submit);
     super.setEventListeners();
-  }
-
-  close() {
-    super.close();
   }
 }
 

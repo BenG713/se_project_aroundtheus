@@ -7,6 +7,24 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import { config, initialCards } from "../utils/constants.js";
 
+const profileEditButton = document.querySelector(".profile__edit-button");
+const addCardButton = document.querySelector(".card__add-button");
+const profileDescriptionInput = document.getElementById(
+  "profile-description-input"
+);
+const profileNameInput = document.getElementById("profile-name-input");
+
+profileEditButton.addEventListener("click", () => {
+  const userInfo = profileUserInfo.getUserInfo();
+  profileDescriptionInput.value = userInfo.description;
+  profileNameInput.value = userInfo.name;
+  profileModal.open();
+});
+
+addCardButton.addEventListener("click", () => {
+  newCardModal.open();
+});
+
 const newCardModal = new PopupWithForm(
   "#profile-card-modal",
   handleCardContent,
@@ -18,24 +36,10 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 const profileUserInfo = new UserInfo({ profileName, profileDescription });
 
-const profileModal = new PopupWithForm(
-  "#profile-edit-modal",
-  (userInput) => {
-    profileUserInfo.setUserInfo(userInput); //used when submitting modal
-    profileModal.close();
-  },
-  "#profile-edit-button",
-  {},
-  () => {
-    document.getElementById("profile-name-input").value =
-      profileUserInfo.getUserInfo().name;
-    document.getElementById("profile-description-input").value =
-      profileUserInfo.getUserInfo().description;
-  }
-);
-
-
-// const { name, description } = profileUserInfo.getUserInfo()
+const profileModal = new PopupWithForm("#profile-edit-modal", (userInput) => {
+  profileUserInfo.setUserInfo(userInput); //used when submitting modal
+  profileModal.close();
+});
 
 profileModal.setEventListeners();
 
