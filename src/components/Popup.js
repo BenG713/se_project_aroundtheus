@@ -1,6 +1,5 @@
 class Popup {
   constructor({ popupSelector }) {
-
     this._popupElement = document.querySelector(popupSelector);
     this._closeBtn = this._popupElement.querySelector(".modal__close");
   }
@@ -33,10 +32,11 @@ class Popup {
     }
   }
 
+
+
   setEventListeners() {
     this._popupElement.addEventListener("click", this.handleClickOutside);
     this._closeBtn.addEventListener("click", this._handleCloseBtn);
-    
   };
 
 }

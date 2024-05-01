@@ -12,6 +12,10 @@
   display: flex;
 }
 
+/* .modal__are-you-sure {
+
+} */
+
 .modal__error {
   font-size: 12px;
   line-height: normal;

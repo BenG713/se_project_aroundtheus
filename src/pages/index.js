@@ -2,6 +2,7 @@ import "./index.css";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
+import { PopupConfirm } from "../components/PopupConfirm.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
@@ -9,21 +10,26 @@ import { config, initialCards } from "../utils/constants.js";
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".card__add-button");
-const profileDescriptionInput = document.getElementById(
-  "profile-description-input"
-);
+const profileDescriptionInput = document.getElementById("profile-description-input");
 const profileNameInput = document.getElementById("profile-name-input");
+
 
 profileEditButton.addEventListener("click", () => {
   const userInfo = profileUserInfo.getUserInfo();
-  profileDescriptionInput.value = userInfo.description;
   profileNameInput.value = userInfo.name;
+  profileDescriptionInput.value = userInfo.description;
   profileModal.open();
 });
 
 addCardButton.addEventListener("click", () => {
   newCardModal.open();
 });
+
+const deleteModal = new PopupConfirm (
+
+);
+
+
 
 const newCardModal = new PopupWithForm(
   "#profile-card-modal",
@@ -68,8 +74,20 @@ function handleImageClick(data) {
   imagePopup.open(data.name, data.link);
 }
 
+function handleDeleteConfirm(card){
+  deleteModal.open(); // opens modal
+  deleteModal.submitAction(() => {
+    api.removeCard() //write removeCard function in Api class
+    .then (() => {
+      card.handleDeleteButton(), //removes card
+      deleteModal.close()})
+    .catch(()=> {}) 
+  })
+}
+
 function createCard(data) {
-  const card = new Card(data, config.templateSelector, handleImageClick);
+  const card = new Card(data, config.templateSelector, handleImageClick, handleDeleteConfirm);
+
   return card.getCardElement();
 }
 
@@ -84,3 +102,6 @@ const cardList = new Section(
 );
 
 cardList.renderItems();
+
+
+//token - c71139a8-616d-4539-81d5-960dbf139c46
