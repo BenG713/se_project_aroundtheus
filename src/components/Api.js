@@ -50,7 +50,7 @@ class Api {
     })
   }
 
-  deleteCard() {
+  removeCard() {
     fetch("https://around-api.en.tripleten-services.com/v1/cards/5d1f0611d321eb4bdcd707dd", {
       method: "DELETE",
       headers: {
