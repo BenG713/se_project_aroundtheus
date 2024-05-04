@@ -41,14 +41,52 @@ class Api {
     });
   }
 
-addCard() {
-  fetch("https://around-api.en.tripleten-services.com/v1/cards", {
-    method: "POST",
-    headers: {
-      authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
-      "Content-Type": ""},
-  })
-}
+  addCard() {
+    fetch("https://around-api.en.tripleten-services.com/v1/cards", {
+      method: "POST",
+      headers: {
+        authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
+        "Content-Type": ""},
+    })
+  }
+
+  deleteCard() {
+    fetch("https://around-api.en.tripleten-services.com/v1/cards/5d1f0611d321eb4bdcd707dd", {
+      method: "DELETE",
+      headers: {
+        authorization: "c71139a8-616d-4539-81d5-960dbf139c46"
+      }
+    })
+  }
+
+  likeCard() {
+    fetch("https://around-api.en.tripleten-services.com/v1/cards/cardId/likes", {
+      method: "PUT",
+      headers: {
+        authorization: "c71139a8-616d-4539-81d5-960dbf139c46"
+      }
+    })
+  }
+
+  unlikeCard() {
+    fetch("https://around-api.en.tripleten-services.com/v1/cards/cardId/likes", {
+      method: "DELETE",
+      headers: {
+      authorization: "c71139a8-616d-4539-81d5-960dbf139c46"
+      }
+    })
+  }
+
+  updateProfilePicture() {
+    fetch("https://around-api.en.tripleten-services.com/v1/users/me/avatar", {
+      method: "PATCH",
+      headers: {
+      authorization: "c71139a8-616d-4539-81d5-960dbf139c46"
+      }
+    })
+  }
+
+
 
 
 

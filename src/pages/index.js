@@ -26,10 +26,8 @@ addCardButton.addEventListener("click", () => {
 });
 
 const deleteModal = new PopupConfirm (
-
+  { popupSelector: "#are-you-sure" }
 );
-
-
 
 const newCardModal = new PopupWithForm(
   "#profile-card-modal",

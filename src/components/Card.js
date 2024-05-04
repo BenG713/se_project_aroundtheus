@@ -1,5 +1,10 @@
 export default class Card {
-  constructor({ name, link }, cardSelector, handleImageClick, handleDeleteConfirm) {
+  constructor(
+    { name, link },
+    cardSelector,
+    handleImageClick,
+    handleDeleteConfirm
+  ) {
     this.handleDeleteConfirm = handleDeleteConfirm;
     this.name = name;
     this.link = link;
@@ -44,9 +49,10 @@ export default class Card {
       .classList.toggle("card__like-button_active");
   }
 
-    handleDeleteButton() {  
-    this._cardElement.remove();
-    this._cardElement = null;
+  handleDeleteButton() {
+    this.handleDeleteConfirm(this);
+    // this._cardElement.remove();
+    // this._cardElement = null;
   }
 
   getCardElement() {
