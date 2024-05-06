@@ -1,6 +1,6 @@
 export default class Card {
   constructor(
-    { name, link },
+    { name, link, id },
     cardSelector,
     handleImageClick,
     handleDeleteConfirm
@@ -8,6 +8,7 @@ export default class Card {
     this.handleDeleteConfirm = handleDeleteConfirm;
     this.name = name;
     this.link = link;
+    this.id = id;
     this._cardSelector = cardSelector; //card template
     this._handleImageClick = handleImageClick;
   }
@@ -48,11 +49,9 @@ export default class Card {
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
   }
-
+  
   handleDeleteButton() {
     this.handleDeleteConfirm(this);
-    // this._cardElement.remove();
-    // this._cardElement = null;
   }
 
   getCardElement() {

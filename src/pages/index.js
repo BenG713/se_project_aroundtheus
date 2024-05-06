@@ -7,6 +7,16 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import { config, initialCards } from "../utils/constants.js";
+import { Api } from "../components/api.js";
+
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
+    "Content-Type": "application/json",
+  },
+});
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".card__add-button");
@@ -29,6 +39,8 @@ const deleteModal = new PopupConfirm (
   { popupSelector: "#are-you-sure" }
 );
 
+
+
 const newCardModal = new PopupWithForm(
   "#profile-card-modal",
   handleCardContent,
@@ -36,6 +48,7 @@ const newCardModal = new PopupWithForm(
 );
 
 newCardModal.setEventListeners();
+
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 const profileUserInfo = new UserInfo({ profileName, profileDescription });
@@ -63,6 +76,7 @@ cardFormValidate.enableValidation();
 
 // When you click the add card button (the +), it creates a new card.
 function handleCardContent({ place: name, link }) {
+  api.addCard(JSON.stringify({ name, link }))
   cardList.addItem(createCard({ name, link }));
   cardFormValidate.resetForm();
   newCardModal.close();
@@ -75,7 +89,7 @@ function handleImageClick(data) {
 function handleDeleteConfirm(card){
   deleteModal.open(); // opens modal
   deleteModal.submitAction(() => {
-    api.removeCard() //write removeCard function in Api class
+    api.removeCard(card.id) 
     .then (() => {
       card.handleDeleteButton(), //removes card
       deleteModal.close()})
@@ -85,19 +99,29 @@ function handleDeleteConfirm(card){
 
 function createCard(data) {
   const card = new Card(data, config.templateSelector, handleImageClick, handleDeleteConfirm);
-
   return card.getCardElement();
 }
 
+let cards = []
 const cardList = new Section(
   {
-    items: initialCards,
+    items: cards,
     renderer: (data) => {
       cardList.addItem(createCard(data));
     },
   },
   config.containerSelector
 );
+
+
+
+api.getInitialCards().then(res => res.json()).then(result => {
+  result.forEach((item) => {
+    cardList.addItem(createCard({name: item.name, link: item.link, id: item.id}))
+  })
+});
+
+
 
 cardList.renderItems();
 

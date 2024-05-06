@@ -126,7 +126,7 @@
             required
           />
           <span class="modal__error" id="card-image-link-input-error"></span>
-          <label class="modal__label">
+          </label>class="modal__label">
 
           <button class="modal__save modal__save_disabled" type="submit" disabled>Create</button>
         </form>
@@ -147,10 +147,11 @@
 <!-- modal are you sure? -->
 
 <div class="modal modal__are-you-sure" id="are-you-sure">
-  <div class="modal__container">
-  <button class="modal__close" id="card-close-button"></button>
-  <form class="modal__form">
-    <button class="modal__delete-button">Yes</button>
+  <div class="modal__container modal__container_are-you-sure">
+  <button class="modal__close" id="modal__close-are-you-sure"></button>
+  <form class="modal__form modal__form_are-you-sure" novalidate>
+    <label class="modal__heading modal__heading_are-you-sure">Are you sure?</label>
+    <button class="modal__save modal__save_yes">Yes</button>
   </form>
   </div>
 </div> 
