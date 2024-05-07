@@ -39,6 +39,7 @@ const deleteModal = new PopupConfirm (
   { popupSelector: "#are-you-sure" }
 );
 
+deleteModal.setEventListeners();
 
 
 const newCardModal = new PopupWithForm(
@@ -96,6 +97,7 @@ function handleDeleteConfirm(card){
     .catch(()=> {}) 
   })
 }
+
 
 function createCard(data) {
   const card = new Card(data, config.templateSelector, handleImageClick, handleDeleteConfirm);
