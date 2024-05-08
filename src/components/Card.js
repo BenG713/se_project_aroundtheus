@@ -23,7 +23,7 @@ export default class Card {
     this._cardElement
       .querySelector(".card__delete-button")
       .addEventListener("click", () => {
-        this.handleDeleteButton(this.handleDeleteConfirm);
+        this.handleDeleteConfirm();
       });
 
     this._cardElement
@@ -50,9 +50,9 @@ export default class Card {
       .classList.toggle("card__like-button_active");
   }
   
-  handleDeleteButton() {
-    this.handleDeleteConfirm(this);
-  }
+  // handleDeleteButton() {
+  //   this.handleDeleteConfirm(this);
+  // }
 
   getCardElement() {
     this._cardElement = document
