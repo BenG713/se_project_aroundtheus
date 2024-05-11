@@ -4,10 +4,18 @@ export class Api {
     this.headers = options.headers;
   }
 
+  handleServerResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    // if the server returns an error, reject the promise
+    return Promise.reject(`Error: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
       headers: this.headers,
-    });
+    }).then(this.handleServerResponse);
   }
 
   loadUserInfo() {
@@ -40,24 +48,21 @@ export class Api {
     });
   }
 
-  addCard(body) { //body => has name and image URL, get from add card form
+  addCard(body) {
+    //body => has name and image URL, get from add card form
     fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       headers: this.headers,
-      body: body
+      body: body,
     });
   }
 
-  removeCard() {
-    fetch(
-      "https://around-api.en.tripleten-services.com/v1/cards/5d1f0611d321eb4bdcd707dd",
-      {
-        method: "DELETE",
-        headers: {
-          authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
-        },
-      }
-    );
+  removeCard(id) {
+    console.log(id);
+    fetch(`${this.baseUrl}/cards/${id}`, {
+      method: "DELETE",
+      headers: this.headers,
+    }).then(this.handleServerResponse);
   }
 
   likeCard() {
@@ -93,4 +98,3 @@ export class Api {
     });
   }
 }
-

@@ -6,8 +6,8 @@ export default class Card {
     handleDeleteConfirm
   ) {
     this.handleDeleteConfirm = handleDeleteConfirm;
-    this.name = name;
-    this.link = link;
+    this._name = name;
+    this._link = link;
     this.id = id;
     this._cardSelector = cardSelector; //card template
     this._handleImageClick = handleImageClick;
@@ -23,7 +23,7 @@ export default class Card {
     this._cardElement
       .querySelector(".card__delete-button")
       .addEventListener("click", () => {
-        this.handleDeleteConfirm();
+        this.handleDeleteConfirm(this);
       });
 
     this._cardElement
@@ -39,9 +39,9 @@ export default class Card {
       ".card__description-text"
     );
 
-    cardImageEl.src = this.link; //adds card image
-    cardImageEl.alt = this.name; //adds card alt text
-    cardNameTextEl.textContent = this.name; //Description
+    cardImageEl.src = this._link; //adds card image
+    cardImageEl.alt = this._name; //adds card alt text
+    cardNameTextEl.textContent = this._name; //Description
   }
 
   _handleLikeButton() {
@@ -49,10 +49,11 @@ export default class Card {
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
   }
-  
-  // handleDeleteButton() {
-  //   this.handleDeleteConfirm(this);
-  // }
+
+  removeCard() {
+    this._cardElement.remove();
+    this._cardElement = null;
+  }
 
   getCardElement() {
     this._cardElement = document

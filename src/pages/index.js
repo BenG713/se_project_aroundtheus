@@ -9,7 +9,6 @@ import UserInfo from "../components/UserInfo.js";
 import { config, initialCards } from "../utils/constants.js";
 import { Api } from "../components/api.js";
 
-
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -20,9 +19,10 @@ const api = new Api({
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".card__add-button");
-const profileDescriptionInput = document.getElementById("profile-description-input");
+const profileDescriptionInput = document.getElementById(
+  "profile-description-input"
+);
 const profileNameInput = document.getElementById("profile-name-input");
-
 
 profileEditButton.addEventListener("click", () => {
   const userInfo = profileUserInfo.getUserInfo();
@@ -35,11 +35,9 @@ addCardButton.addEventListener("click", () => {
   newCardModal.open();
 });
 
-const deleteModal = new PopupConfirm (
-  { popupSelector: "#are-you-sure" }
-);
+const deleteModal = new PopupConfirm({ popupSelector: "#are-you-sure" });
 
-
+deleteModal.setEventListeners();
 
 const newCardModal = new PopupWithForm(
   "#profile-card-modal",
@@ -76,7 +74,7 @@ cardFormValidate.enableValidation();
 
 // When you click the add card button (the +), it creates a new card.
 function handleCardContent({ place: name, link }) {
-  api.addCard(JSON.stringify({ name, link }))
+  api.addCard(JSON.stringify({ name, link }));
   cardList.addItem(createCard({ name, link }));
   cardFormValidate.resetForm();
   newCardModal.close();
@@ -86,24 +84,30 @@ function handleImageClick(data) {
   imagePopup.open(data.name, data.link);
 }
 
-function handleDeleteConfirm(card){
+function handleDeleteConfirm(card) {
   deleteModal.open(); // opens modal
   deleteModal.submitAction(() => {
-    api.removeCard(card.id) 
-    .then (() => {
-      card.handleDeleteButton(), //removes card
-      deleteModal.close()})
-    .catch(()=> {}) 
-  })
+    api
+      .removeCard(card.id)
+      .then(() => {
+        card.removeCard(); //removes card
+        deleteModal.close();
+      })
+      .catch(() => {});
+  });
 }
 
-
 function createCard(data) {
-  const card = new Card(data, config.templateSelector, handleImageClick, handleDeleteConfirm);
+  const card = new Card(
+    data,
+    config.templateSelector,
+    handleImageClick,
+    handleDeleteConfirm
+  );
   return card.getCardElement();
 }
 
-let cards = []
+let cards = [];
 const cardList = new Section(
   {
     items: cards,
@@ -114,17 +118,19 @@ const cardList = new Section(
   config.containerSelector
 );
 
+api
+  .getInitialCards()
+  .then((res) => res.json())
+  .then((result) => {
 
+    result.forEach((item) => {
+      cardList.addItem(
+        createCard({ name: item.name, link: item.link, id: item._id })
+      );
+    });
 
-api.getInitialCards().then(res => res.json()).then(result => {
-  result.forEach((item) => {
-    cardList.addItem(createCard({name: item.name, link: item.link, id: item.id}))
-  })
-});
-
-
+  });
 
 cardList.renderItems();
-
 
 //token - c71139a8-616d-4539-81d5-960dbf139c46
