@@ -1,6 +1,8 @@
+import { api } from "../components/api.js";
+
 export default class Card {
   constructor(
-    { name, link, id },
+    { name, link, id, isLiked },
     cardSelector,
     handleImageClick,
     handleDeleteConfirm
@@ -9,6 +11,7 @@ export default class Card {
     this._name = name;
     this._link = link;
     this.id = id;
+    this.isLiked = isLiked;
     this._cardSelector = cardSelector; //card template
     this._handleImageClick = handleImageClick;
   }
@@ -31,6 +34,12 @@ export default class Card {
       .addEventListener("click", () => {
         this._handleImageClick(this);
       });
+      if(this.isLiked){
+        this._cardElement
+        .querySelector(".card__like-button")
+        .classList.toggle("card__like-button_active");
+
+      }
   }
 
   _setCardNameImageAndDescription() {
@@ -45,10 +54,16 @@ export default class Card {
   }
 
   _handleLikeButton() {
+    if(this.isLiked)
+    {api.unlikeCard(this.id).then(json => this.liked = false)}
+    else
+    {api.likeCard(this.id).then(json => this.isLiked = true)};
     this._cardElement
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
   }
+
+
 
   removeCard() {
     this._cardElement.remove();

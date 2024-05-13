@@ -50,43 +50,32 @@ export class Api {
 
   addCard(body) {
     //body => has name and image URL, get from add card form
-    fetch(`${this.baseUrl}/cards`, {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       headers: this.headers,
       body: body,
-    });
+    }).then(this.handleServerResponse);
   }
 
   removeCard(id) {
-    console.log(id);
-    fetch(`${this.baseUrl}/cards/${id}`, {
+    return fetch(`${this.baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this.headers,
     }).then(this.handleServerResponse);
   }
 
-  likeCard() {
-    fetch(
-      "https://around-api.en.tripleten-services.com/v1/cards/cardId/likes",
-      {
-        method: "PUT",
-        headers: {
-          authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
-        },
-      }
-    );
+  likeCard(id) {
+    return fetch(`${this.baseUrl}/cards/${id}/likes`, {
+      method: "PUT", //updating existing data
+      headers: this.headers,
+    }).then(this.handleServerResponse);
   }
 
-  unlikeCard() {
-    fetch(
-      "https://around-api.en.tripleten-services.com/v1/cards/cardId/likes",
-      {
-        method: "DELETE",
-        headers: {
-          authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
-        },
-      }
-    );
+  unlikeCard(id) {
+    return fetch(`${this.baseUrl}/cards/${id}/likes`, {
+      method: "DELETE",
+      headers: this.headers,
+    }).then(this.handleServerResponse);
   }
 
   updateProfilePicture() {
@@ -98,3 +87,11 @@ export class Api {
     });
   }
 }
+
+export const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
+    "Content-Type": "application/json",
+  },
+});

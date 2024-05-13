@@ -7,15 +7,8 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import { config, initialCards } from "../utils/constants.js";
-import { Api } from "../components/api.js";
+import { api } from "../components/api.js";
 
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
-    "Content-Type": "application/json",
-  },
-});
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".card__add-button");
@@ -74,14 +67,16 @@ cardFormValidate.enableValidation();
 
 // When you click the add card button (the +), it creates a new card.
 function handleCardContent({ place: name, link }) {
-  api.addCard(JSON.stringify({ name, link }));
-  cardList.addItem(createCard({ name, link }));
-  cardFormValidate.resetForm();
-  newCardModal.close();
+  api.addCard(JSON.stringify({ name, link })).then(card => { //creating card on server
+    cardList.addItem(createCard({ name, link, id: card._id })); //after getting response, creating card in browser
+    cardFormValidate.resetForm();
+    newCardModal.close();
+  })
 }
 
 function handleImageClick(data) {
-  imagePopup.open(data.name, data.link);
+  console.log(data.link, data)
+  imagePopup.open(data._name, data._link);
 }
 
 function handleDeleteConfirm(card) {
@@ -118,14 +113,15 @@ const cardList = new Section(
   config.containerSelector
 );
 
+// api.loadUserInfo().then((result) => {})
+
 api
   .getInitialCards()
-  .then((res) => res.json())
   .then((result) => {
 
-    result.forEach((item) => {
+    result.reverse().forEach((item) => {
       cardList.addItem(
-        createCard({ name: item.name, link: item.link, id: item._id })
+        createCard({ name: item.name, link: item.link, id: item._id, isLiked: item.isLiked })
       );
     });
 
