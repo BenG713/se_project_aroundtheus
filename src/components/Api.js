@@ -19,11 +19,9 @@ export class Api {
   }
 
   loadUserInfo() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
-      headers: {
-        authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
-      },
-    });
+    return fetch(`${this.baseUrl}/users/me`, {
+      headers: this.headers,
+    }).then(this.handleServerResponse);
   }
 
   loadCards() {
@@ -34,18 +32,12 @@ export class Api {
     });
   }
 
-  editProfile() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
-      method: "PATCH",
-      headers: {
-        authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: "Marie Skłodowska Curie",
-        about: "Physicist and Chemist",
-      }),
-    });
+  editProfile(body) {
+      return fetch(`${this.baseUrl}/users/me`, {
+        method: "PATCH",
+        headers: this.headers,
+        body: body
+      }).then(this.handleServerResponse);
   }
 
   addCard(body) {
@@ -79,13 +71,14 @@ export class Api {
   }
 
   updateProfilePicture() {
-    fetch("https://around-api.en.tripleten-services.com/v1/users/me/avatar", {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: {
-        authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
-      },
-    });
+      headers: this.headers,
+      body: body
+    }).then(this.handleServerResponse);
   }
+
+
 }
 
 export const api = new Api({

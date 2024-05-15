@@ -42,14 +42,35 @@ newCardModal.setEventListeners();
 
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
-const profileUserInfo = new UserInfo({ profileName, profileDescription });
+const profileAvatar = document.querySelector(".profile__image");
+const profileUserInfo = new UserInfo({ profileName, profileDescription, profileAvatar });
 
 const profileModal = new PopupWithForm("#profile-edit-modal", (userInput) => {
+ api.editProfile(JSON.stringify({ name: userInput.name, about: userInput.description })).then(json => {
   profileUserInfo.setUserInfo(userInput); //used when submitting modal
   profileModal.close();
+ })
 });
 
 profileModal.setEventListeners();
+
+
+
+
+profileAvatar.addEventListener("click", () => {
+  avatarModal.open()
+})
+
+const avatarModal = new PopupWithForm("#avatar-edit-modal", (userInput) => {
+  api.updateProfilePicture(JSON.stringify({ avatar: userInput.avatar })).then(json => {
+   profileUserInfo.setUserInfo(userInput); //used when submitting modal
+   avatarModal.close();
+
+  })
+ });
+
+ 
+ avatarModal.setEventListeners();
 
 const imagePopup = new PopupWithImage({
   popupSelector: "#modal-image",
@@ -59,9 +80,11 @@ imagePopup.setEventListeners();
 
 const profileFormValidate = new FormValidator("#profile-form", config);
 const cardFormValidate = new FormValidator("#card-form", config);
+const avatarValidate = new FormValidator("#avatar-form", config);
 
 profileFormValidate.enableValidation();
 cardFormValidate.enableValidation();
+avatarValidate.enableValidation();
 
 //inputs and information
 
@@ -113,7 +136,9 @@ const cardList = new Section(
   config.containerSelector
 );
 
-// api.loadUserInfo().then((result) => {})
+api.loadUserInfo().then((userInfo) => {
+  profileUserInfo.setUserInfo({ name: userInfo.name, description: userInfo.about, avatar: userInfo.avatar })
+})
 
 api
   .getInitialCards()

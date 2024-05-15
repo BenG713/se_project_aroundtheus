@@ -17,17 +17,16 @@
     </header>
     
     
-
     <div class="page__content">
       <section class="profile">
         <img
           class="profile__image"
-          src="<%=require('./images/Cousteau-image.svg')%>"
-          alt="Cousteau image"
+          src=
+          alt=""
         />
 
         <div class="profile__info">
-          <h1 class="profile__name">Jacques Cousteau</h1>
+          <h1 class="profile__name"></h1>
           <button
             type="button"
             aria-label="Edit"
@@ -35,7 +34,7 @@
             id="profile-edit-button"
           ></button>
 
-          <p class="profile__description">Explorer</p>
+          <p class="profile__description"></p>
         </div>
         <button
           type="button"
@@ -87,6 +86,32 @@
             required 
           />
           <span class="modal__error" id="profile-description-input-error"></span>
+          </label>
+
+          <button class="modal__save" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+
+<!-- Avtar input modal -->
+
+    <div class="modal" id="avatar-edit-modal">
+      <div class="modal__container">
+        <button class="modal__close" id="close-button"></button>
+        <div class="modal__heading">Change profile picture</div>
+        <form class="modal__form" id="avatar-form"> <!-- FORM -->
+
+          <label class="modal__label">
+          <input
+            class="modal__input"
+            id="avatar-input"
+            type="url"
+            name="avatar"
+            placeholder="Avatar URL"
+            required 
+          />
+          <span class="modal__error" id="avatar-input-error"></span>
           </label>
 
           <button class="modal__save" type="submit">Save</button>
