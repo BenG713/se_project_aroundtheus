@@ -33,11 +33,11 @@ export class Api {
   }
 
   editProfile(body) {
-      return fetch(`${this.baseUrl}/users/me`, {
-        method: "PATCH",
-        headers: this.headers,
-        body: body
-      }).then(this.handleServerResponse);
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: body,
+    }).then(this.handleServerResponse);
   }
 
   addCard(body) {
@@ -70,15 +70,13 @@ export class Api {
     }).then(this.handleServerResponse);
   }
 
-  updateProfilePicture() {
+  updateProfilePicture(body) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this.headers,
-      body: body
+      body: body,
     }).then(this.handleServerResponse);
   }
-
-
 }
 
 export const api = new Api({

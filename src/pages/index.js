@@ -35,7 +35,7 @@ deleteModal.setEventListeners();
 const newCardModal = new PopupWithForm(
   "#profile-card-modal",
   handleCardContent,
-  "#card-add-button"
+  "#card-add-button" // TODO do we need this third argument?
 );
 
 newCardModal.setEventListeners();
@@ -98,7 +98,6 @@ function handleCardContent({ place: name, link }) {
 }
 
 function handleImageClick(data) {
-  console.log(data.link, data)
   imagePopup.open(data._name, data._link);
 }
 

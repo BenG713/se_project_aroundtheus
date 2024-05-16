@@ -12,15 +12,25 @@
   height: 120px;
   width: 120px;
   border-radius: 60px;
-
 }
 
-.profile__image:hover {
-  display: block;
-  background-image: url(../images/Pencil.svg);
-  cursor: pointer;
-  opacity: 0.5;
+.avatar__container {
+  height: 120px;
+  width: 120px;
 
+  margin-right: 40px;
+  opacity: 1;
+}
+
+.avatar__container:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.pencil-icon {
+  background: url(../images/Pencil.svg) center no-repeat;
+  visibility: visible;
+  transition: opacity 0.3s;
 }
 
 .profile__info {

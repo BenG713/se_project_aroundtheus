@@ -4,6 +4,7 @@ class PopupWithForm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super({ popupSelector });
     this._handleFormSubmit = handleFormSubmit;
+    // TODO ask what this does and write it down
     this.submit = this.submit.bind(this);
   }
 
@@ -16,9 +17,13 @@ class PopupWithForm extends Popup {
     return formValues;
   }
 
-  submit(e) {
+  submit(e) { // handles all submitting stuff
     e.preventDefault();
+    const buttonLabel = this._popupElement.querySelector(".modal__save").innerText;
+    this._popupElement.querySelector(".modal__save").innerText = "Saving....";
     this._handleFormSubmit(this._getInputValues());
+    this._popupElement.querySelector(".modal__save").innerText = buttonLabel;
+
   }
 
   setEventListeners() {

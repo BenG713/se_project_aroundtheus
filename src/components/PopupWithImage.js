@@ -8,7 +8,6 @@ export class PopupWithImage extends Popup {
   }
 
   open(name, link) {
-    console.log(link, this._cardImage)
     super.open();
     this._cardImage.src = link;
     this._cardTitle.textContent = name;

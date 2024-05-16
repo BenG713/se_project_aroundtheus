@@ -1,6 +1,10 @@
 import Popup from "./Popup";
 
 export class PopupConfirm extends Popup {
+  constructor( { popupSelector } ) {
+    super({ popupSelector });
+  }
+
   submitAction(action) {
     this.handleSubmitAction = action; //handleSubmitAction is the function (api.delete card)
   }
@@ -11,4 +15,5 @@ export class PopupConfirm extends Popup {
       this.handleSubmitAction();
     });
   }
+
 }
