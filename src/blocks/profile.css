@@ -17,20 +17,26 @@
 .avatar__container {
   height: 120px;
   width: 120px;
-
   margin-right: 40px;
-  opacity: 1;
-}
-
-.avatar__container:hover {
-  opacity: 0.5;
-  cursor: pointer;
+  position: relative;
 }
 
 .pencil-icon {
   background: url(../images/Pencil.svg) center no-repeat;
   visibility: visible;
   transition: opacity 0.3s;
+  position: absolute;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, .8);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.pencil-icon:hover {
+  opacity: 1;
+  cursor: pointer;
 }
 
 .profile__info {

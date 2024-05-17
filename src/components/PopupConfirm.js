@@ -14,6 +14,7 @@ export class PopupConfirm extends Popup {
       event.preventDefault();
       this.handleSubmitAction();
     });
+    super.setEventListeners();
   }
 
 }

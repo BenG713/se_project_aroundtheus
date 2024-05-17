@@ -9,7 +9,6 @@ import UserInfo from "../components/UserInfo.js";
 import { config, initialCards } from "../utils/constants.js";
 import { api } from "../components/api.js";
 
-
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".card__add-button");
 const profileDescriptionInput = document.getElementById(
@@ -43,34 +42,40 @@ newCardModal.setEventListeners();
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 const profileAvatar = document.querySelector(".profile__image");
-const profileUserInfo = new UserInfo({ profileName, profileDescription, profileAvatar });
+const avatarEditBtn = document.querySelector(".pencil-icon");
+const profileUserInfo = new UserInfo({
+  profileName,
+  profileDescription,
+  profileAvatar,
+});
 
 const profileModal = new PopupWithForm("#profile-edit-modal", (userInput) => {
- api.editProfile(JSON.stringify({ name: userInput.name, about: userInput.description })).then(json => {
-  profileUserInfo.setUserInfo(userInput); //used when submitting modal
-  profileModal.close();
- })
+  api
+    .editProfile(
+      JSON.stringify({ name: userInput.name, about: userInput.description })
+    )
+    .then((json) => {
+      profileUserInfo.setUserInfo(userInput); //used when submitting modal
+      profileModal.close();
+    });
 });
 
 profileModal.setEventListeners();
 
-
-
-
-profileAvatar.addEventListener("click", () => {
-  avatarModal.open()
-})
+avatarEditBtn.addEventListener("click", () => {
+  avatarModal.open();
+});
 
 const avatarModal = new PopupWithForm("#avatar-edit-modal", (userInput) => {
-  api.updateProfilePicture(JSON.stringify({ avatar: userInput.avatar })).then(json => {
-   profileUserInfo.setUserInfo(userInput); //used when submitting modal
-   avatarModal.close();
+  api
+    .updateProfilePicture(JSON.stringify({ avatar: userInput.avatar }))
+    .then((json) => {
+      profileUserInfo.setUserInfo(userInput); //used when submitting modal
+      avatarModal.close();
+    });
+});
 
-  })
- });
-
- 
- avatarModal.setEventListeners();
+avatarModal.setEventListeners();
 
 const imagePopup = new PopupWithImage({
   popupSelector: "#modal-image",
@@ -90,11 +95,12 @@ avatarValidate.enableValidation();
 
 // When you click the add card button (the +), it creates a new card.
 function handleCardContent({ place: name, link }) {
-  api.addCard(JSON.stringify({ name, link })).then(card => { //creating card on server
+  api.addCard(JSON.stringify({ name, link })).then((card) => {
+    //creating card on server
     cardList.addItem(createCard({ name, link, id: card._id })); //after getting response, creating card in browser
     cardFormValidate.resetForm();
     newCardModal.close();
-  })
+  });
 }
 
 function handleImageClick(data) {
@@ -136,20 +142,25 @@ const cardList = new Section(
 );
 
 api.loadUserInfo().then((userInfo) => {
-  profileUserInfo.setUserInfo({ name: userInfo.name, description: userInfo.about, avatar: userInfo.avatar })
-})
-
-api
-  .getInitialCards()
-  .then((result) => {
-
-    result.reverse().forEach((item) => {
-      cardList.addItem(
-        createCard({ name: item.name, link: item.link, id: item._id, isLiked: item.isLiked })
-      );
-    });
-
+  profileUserInfo.setUserInfo({
+    name: userInfo.name,
+    description: userInfo.about,
+    avatar: userInfo.avatar,
   });
+});
+
+api.getInitialCards().then((result) => {
+  result.reverse().forEach((item) => {
+    cardList.addItem(
+      createCard({
+        name: item.name,
+        link: item.link,
+        id: item._id,
+        isLiked: item.isLiked,
+      })
+    );
+  });
+});
 
 cardList.renderItems();
 
