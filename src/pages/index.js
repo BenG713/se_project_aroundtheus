@@ -50,13 +50,15 @@ const profileUserInfo = new UserInfo({
 });
 
 const profileModal = new PopupWithForm("#profile-edit-modal", (userInput) => {
+  profileModal.setButtonLoadingState(true);
   api
     .editProfile(
       JSON.stringify({ name: userInput.name, about: userInput.description })
     )
-    .then((json) => {
+    .then(() => {
       profileUserInfo.setUserInfo(userInput); //used when submitting modal
       profileModal.close();
+      profileModal.setButtonLoadingState(false);
     });
 });
 
@@ -95,12 +97,18 @@ avatarValidate.enableValidation();
 
 // When you click the add card button (the +), it creates a new card.
 function handleCardContent({ place: name, link }) {
+  //
   api.addCard(JSON.stringify({ name, link })).then((card) => {
     //creating card on server
     cardList.addItem(createCard({ name, link, id: card._id })); //after getting response, creating card in browser
     cardFormValidate.resetForm();
     newCardModal.close();
-  });
+
+  })
+  .catch((error)=>{
+    /// how do we handle the error
+  })
+  .finally(()=>{})
 }
 
 function handleImageClick(data) {
@@ -141,7 +149,7 @@ const cardList = new Section(
   config.containerSelector
 );
 
-api.loadUserInfo().then((userInfo) => {
+api.getInitialCards().then((userInfo) => {
   profileUserInfo.setUserInfo({
     name: userInfo.name,
     description: userInfo.about,

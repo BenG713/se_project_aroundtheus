@@ -14,30 +14,21 @@ export class Api {
 
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
-      headers: this.headers,
-    }).then(this.handleServerResponse);
-  }
-
-  loadUserInfo() {
-    return fetch(`${this.baseUrl}/users/me`, {
-      headers: this.headers,
-    }).then(this.handleServerResponse);
-  }
-
-  loadCards() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
-      headers: {
-        authorization: "c71139a8-616d-4539-81d5-960dbf139c46",
-      },
-    });
-  }
+    headers: this.headers,
+     })
+     .then(this.handleServerResponse);
+    }
+    
 
   editProfile(body) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this.headers,
       body: body,
-    }).then(this.handleServerResponse);
+    }).then(this.handleServerResponse)
+    .catch((error)=> {
+      console.log(error)
+    });
   }
 
   addCard(body) {
@@ -46,28 +37,40 @@ export class Api {
       method: "POST",
       headers: this.headers,
       body: body,
-    }).then(this.handleServerResponse);
+    }).then(this.handleServerResponse)
+    .catch((error)=> {
+      console.log(error)
+    });
   }
 
   removeCard(id) {
     return fetch(`${this.baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this.headers,
-    }).then(this.handleServerResponse);
+    }).then(this.handleServerResponse)    
+    .catch((error)=> {
+      console.log(error)
+    });
   }
 
   likeCard(id) {
     return fetch(`${this.baseUrl}/cards/${id}/likes`, {
       method: "PUT", //updating existing data
       headers: this.headers,
-    }).then(this.handleServerResponse);
+    }).then(this.handleServerResponse)
+    .catch((error)=> {
+      console.log(error)
+    });
   }
 
   unlikeCard(id) {
     return fetch(`${this.baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this.headers,
-    }).then(this.handleServerResponse);
+    }).then(this.handleServerResponse)
+    .catch((error)=> {
+      console.log(error)
+    });
   }
 
   updateProfilePicture(body) {
@@ -75,7 +78,10 @@ export class Api {
       method: "PATCH",
       headers: this.headers,
       body: body,
-    }).then(this.handleServerResponse);
+    }).then(this.handleServerResponse)
+    .catch((error)=> {
+      console.log(error)
+    });
   }
 }
 

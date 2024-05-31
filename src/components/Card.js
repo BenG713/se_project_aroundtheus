@@ -55,9 +55,20 @@ export default class Card {
 
   _handleLikeButton() {
     if(this.isLiked)
-    {api.unlikeCard(this.id).then(json => this.liked = false)}
+    {
+      api.unlikeCard(this.id)
+        .then(json => this.liked = false)
+    .catch((error)=> {
+      console.log(error)
+    })
+    
+    }
     else
-    {api.likeCard(this.id).then(json => this.isLiked = true)};
+    {api.likeCard(this.id).then(json => this.isLiked = true)
+      .catch((error)=> {
+        console.log(error)
+      })
+    }
     this._cardElement
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
