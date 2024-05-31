@@ -1,7 +1,17 @@
+import { api } from "../components/api.js";
+
 export default class Card {
-  constructor({ name, link }, cardSelector, handleImageClick) {
-    this.name = name;
-    this.link = link;
+  constructor(
+    { name, link, id, isLiked },
+    cardSelector,
+    handleImageClick,
+    handleDeleteConfirm
+  ) {
+    this.handleDeleteConfirm = handleDeleteConfirm;
+    this._name = name;
+    this._link = link;
+    this.id = id;
+    this.isLiked = isLiked;
     this._cardSelector = cardSelector; //card template
     this._handleImageClick = handleImageClick;
   }
@@ -16,7 +26,7 @@ export default class Card {
     this._cardElement
       .querySelector(".card__delete-button")
       .addEventListener("click", () => {
-        this._handleDeleteButton();
+        this.handleDeleteConfirm(this);
       });
 
     this._cardElement
@@ -24,6 +34,12 @@ export default class Card {
       .addEventListener("click", () => {
         this._handleImageClick(this);
       });
+      if(this.isLiked){
+        this._cardElement
+        .querySelector(".card__like-button")
+        .classList.toggle("card__like-button_active");
+
+      }
   }
 
   _setCardNameImageAndDescription() {
@@ -32,18 +48,35 @@ export default class Card {
       ".card__description-text"
     );
 
-    cardImageEl.src = this.link; //adds card image
-    cardImageEl.alt = this.name; //adds card alt text
-    cardNameTextEl.textContent = this.name; //Description
+    cardImageEl.src = this._link; //adds card image
+    cardImageEl.alt = this._name; //adds card alt text
+    cardNameTextEl.textContent = this._name; //Description
   }
 
   _handleLikeButton() {
+    if(this.isLiked)
+    {
+      api.unlikeCard(this.id)
+        .then(json => this.liked = false)
+    .catch((error)=> {
+      console.log(error)
+    })
+    
+    }
+    else
+    {api.likeCard(this.id).then(json => this.isLiked = true)
+      .catch((error)=> {
+        console.log(error)
+      })
+    }
     this._cardElement
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
   }
 
-  _handleDeleteButton() {
+
+
+  removeCard() {
     this._cardElement.remove();
     this._cardElement = null;
   }

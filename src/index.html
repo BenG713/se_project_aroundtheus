@@ -13,21 +13,23 @@
 
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Logo" />
+      <img
+        class="header__logo"
+        src="<%=require('./images/logo.svg')%>"
+        alt="Logo"
+      />
     </header>
-    
-    
 
     <div class="page__content">
       <section class="profile">
-        <img
-          class="profile__image"
-          src="<%=require('./images/Cousteau-image.svg')%>"
-          alt="Cousteau image"
-        />
+
+        <div class="avatar__container">
+          <img class="profile__image" src="" alt="Avatar image" />
+          <div class="pencil-icon"></div>
+        </div>
 
         <div class="profile__info">
-          <h1 class="profile__name">Jacques Cousteau</h1>
+          <h1 class="profile__name"></h1>
           <button
             type="button"
             aria-label="Edit"
@@ -35,7 +37,7 @@
             id="profile-edit-button"
           ></button>
 
-          <p class="profile__description">Explorer</p>
+          <p class="profile__description"></p>
         </div>
         <button
           type="button"
@@ -59,34 +61,64 @@
       <div class="modal__container">
         <button class="modal__close" id="close-button"></button>
         <div class="modal__heading">Edit profile</div>
-        <form class="modal__form" id="profile-form" novalidate> <!-- FORM -->
+        <form class="modal__form" id="profile-form" novalidate>
+          <!-- FORM -->
 
           <label class="modal__label">
-          <input
-            class="modal__input"
-            id="profile-name-input"
-            type="text"
-            name="name"
-            placeholder="Name"
-            maxlength="40"
-            minlength="2"
-            required 
-          />
-          <span id="profile-name-input-error" class="modal__error"></span>
+            <input
+              class="modal__input"
+              id="profile-name-input"
+              type="text"
+              name="name"
+              placeholder="Name"
+              maxlength="40"
+              minlength="2"
+              required
+            />
+            <span id="profile-name-input-error" class="modal__error"></span>
           </label>
 
           <label class="modal__label">
-          <input
-            class="modal__input"
-            id="profile-description-input"
-            type="text"
-            name="description"
-            placeholder="Description"
-            maxlength="200"
-            minlength="2"
-            required 
-          />
-          <span class="modal__error" id="profile-description-input-error"></span>
+            <input
+              class="modal__input"
+              id="profile-description-input"
+              type="text"
+              name="description"
+              placeholder="Description"
+              maxlength="200"
+              minlength="2"
+              required
+            />
+            <span
+              class="modal__error"
+              id="profile-description-input-error"
+            ></span>
+          </label>
+
+          <button class="modal__save" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Avtar input modal -->
+
+    <div class="modal" id="avatar-edit-modal">
+      <div class="modal__container">
+        <button class="modal__close" id="close-button"></button>
+        <div class="modal__heading">Change profile picture</div>
+        <form class="modal__form" id="avatar-form" novalidate>
+          <!-- FORM -->
+
+          <label class="modal__label">
+            <input
+              class="modal__input"
+              id="avatar-input"
+              type="url"
+              name="avatar"
+              placeholder="Avatar URL"
+              required
+            />
+            <span class="modal__error" id="avatar-input-error"></span>
           </label>
 
           <button class="modal__save" type="submit">Save</button>
@@ -100,46 +132,74 @@
       <div class="modal__container">
         <button class="modal__close" id="card-close-button"></button>
         <div class="modal__heading">New place</div>
-        <form class="modal__form" id="card-form" novalidate> <!-- FORM -->
+        <form class="modal__form" id="card-form" novalidate>
+          <!-- FORM -->
 
           <label class="modal__label">
-          <input
-            class="modal__input"
-            id="card-name-input"
-            type="text"
-            name="place"
-            placeholder="Title"
-            maxlength="30"
-            minlength="1"
-            required
-          />
-          <span class="modal__error" id="card-name-input-error"></span>
+            <input
+              class="modal__input"
+              id="card-name-input"
+              type="text"
+              name="place"
+              placeholder="Title"
+              maxlength="30"
+              minlength="1"
+              required
+            />
+            <span class="modal__error" id="card-name-input-error"></span>
           </label>
 
           <label class="modal__label">
-          <input
-            class="modal__input"
-            id="card-image-link-input"
-            type="url"
-            name="link"
-            placeholder="Image link"
-            required
-          />
-          <span class="modal__error" id="card-image-link-input-error"></span>
-          <label class="modal__label">
+            <input
+              class="modal__input"
+              id="card-image-link-input"
+              type="url"
+              name="link"
+              placeholder="Image link"
+              required
+            />
+            <span
+              class="modal__error"
+              id="card-image-link-input-error"
+            ></span> </label
+          >class="modal__label">
 
-          <button class="modal__save modal__save_disabled" type="submit" disabled>Create</button>
+          <button
+            class="modal__save modal__save_disabled"
+            type="submit"
+            disabled
+          >
+            Create
+          </button>
         </form>
       </div>
     </div>
 
+    <!-- modal image preview -->
+
     <div class="modal" id="modal-image">
-      <div class= "modal__container modal__container_image">
+      <div class="modal__container modal__container_image">
         <button class="modal__close" id="image-close-button"></button>
         <img src="" alt="" class="modal__preview-image" />
         <span class="modal__preview-title"></span>
       </div>
     </div>
+
+    <!-- modal are you sure? -->
+
+    <div class="modal modal__are-you-sure" id="are-you-sure">
+      <div class="modal__container modal__container_are-you-sure">
+        <button class="modal__close" id="modal__close-are-you-sure"></button>
+        <form class="modal__form modal__form_are-you-sure" novalidate>
+          <label class="modal__heading modal__heading_are-you-sure"
+            >Are you sure?</label
+          >
+          <button class="modal__save modal__save_yes">Yes</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- card template -->
 
     <template id="card-template">
       <li class="card">
@@ -151,7 +211,7 @@
         </div>
       </li>
     </template>
-    
+
     <!-- <script type="module" src="./pages/index.js"></script> -->
   </body>
 </html>
